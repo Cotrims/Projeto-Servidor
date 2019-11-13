@@ -3,7 +3,7 @@ import java.io.*;
 
 public class Cliente
 {
-	public static final String HOST_PADRAO  = "177.220.18.44";
+	public static final String HOST_PADRAO  = "177.220.18.17";
 	public static final int    PORTA_PADRAO = 3000;
 	private String nome;
 
@@ -137,6 +137,7 @@ public class Cliente
 						System.out.print("Aguarde...");
 
 					servidor.receba(new PedidoDeJogo(escolha));
+					servidor.setEscolha(escolha);
 
 					switch(escolha)
 					{

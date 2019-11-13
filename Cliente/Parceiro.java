@@ -8,11 +8,13 @@ public class Parceiro
     private ObjectInputStream  receptor;
     private ObjectOutputStream transmissor;
     private String nome;
+    private char escolha;
 
     public Parceiro (Socket             conexao,
                      ObjectInputStream  receptor,
                      ObjectOutputStream transmissor,
-                     String nome)
+                     String nome,
+		     char escolha)
                      throws Exception // se parametro nulos
     {
         if (conexao==null)
@@ -27,10 +29,14 @@ public class Parceiro
         if (nome==null)
             throw new Exception ("Nome ausente");
 
+	if (escolha==null)
+            throw new Exception ("Escolha ausente");
+
         this.conexao     = conexao;
         this.receptor    = receptor;
         this.transmissor = transmissor;
         this.nome        = nome;
+	this.escolha     = escolha;
     }
 
 	public String getNome()
@@ -43,6 +49,18 @@ public class Parceiro
 		 if (nome==null)
             throw new Exception ("Nome ausente");
          this.nome = nome;
+	}
+
+	public String getEscolha()
+	{
+		return this.escolha;
+	}
+
+	public void setEscolha(char escolha)
+	{
+	    if (escolha==null)
+                throw new Exception ("Escolha ausente");
+         this.escolha = escolha;
 	}
 
     public void receba (Comunicado x) throws Exception

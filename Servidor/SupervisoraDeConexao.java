@@ -4,7 +4,8 @@ import java.util.*;
 
 public class SupervisoraDeConexao extends Thread
 {
-    private double              valor=0;
+    private int numero;
+	private int numeroOutro;
     private Parceiro            usuario;
     private Socket              conexao;
     private ArrayList<Parceiro> usuarios;
@@ -32,7 +33,7 @@ public class SupervisoraDeConexao extends Thread
             new ObjectInputStream(
             this.conexao.getInputStream());
         }
-        catch (Exception err0)
+        catch (Exception erro)
         {
             return;
         }
@@ -66,6 +67,9 @@ public class SupervisoraDeConexao extends Thread
         catch (Exception erro)
         {} // sei que passei os parametros corretos
 
+        // colocar tudo os negocio bonitinho de par ou impar
+
+
         try
         {
             synchronized (this.usuarios)
@@ -80,25 +84,69 @@ public class SupervisoraDeConexao extends Thread
 
                 if      (comunicado==null)
                     return;
-                else if (comunicado instanceof PedidoDeAdicao)
+                else if (comunicado instanceof PedidoDeNome)
                 {
-                    this.valor += ((PedidoDeAdicao)comunicado).getValorParaAdicionar();
+                    System.out.print("Digite seu nome: ");
+                    this.usuario.receba (new Nome(Teclado.getUmString()));
+					//this.usuario.setNome(Teclado.getUmString()); // ver onde q isso vai com o gitzel pq tem q passar pro cliente
                 }
-                else if (comunicado instanceof PedidoDeSubtracao)
+                else if (comunicado instanceof PedidoDeJogo)
                 {
-                    this.valor -= ((PedidoDeSubtracao)comunicado).getValorParaSubtrair();
+					PedidoDeJogo pedido = (PedidoDeJogo)comunicado;
+					escolha = pedido.getEscolha();
+					if(escolha == ' ')
+					{
+						System.out.print ("Par [P] ou ímpar [I]?");
+						try
+						{
+							escolha = Teclado.getUmChar();
+						}
+						catch (Exception erro)
+						{
+							System.err.println ("Opcao invalida!\n");
+							continue;
+						}
+						if ("PI".indexOf(opcao)==-1)
+						{
+							System.err.println ("Opcao invalida!\n");
+							continue;
+						}
+					}
+					else if(escolha == 'P')
+						System.out.print("Você é ímpar");
+						else if(escolha == 'I')
+							System.out.print("Você é par");
+					this.usuario.setEscolha(escolha);
                 }
-                else if (comunicado instanceof PedidoDeMultiplicacao)
-                {
-                    this.valor *= ((PedidoDeMultiplicacao)comunicado).getValorParaMultiplicar();
-                }
-                else if (comunicado instanceof PedidoDeDivisao)
-                {
-                    this.valor /= ((PedidoDeDivisao)comunicado).getValorParaDividir();
+                else if (comunicado instanceof PedidoDeNumero)
+				{
+					PedidoDeNumero pedido = (PedidoDeNumero)comunicado;
+					numeroOutro = pedido.getNumero();
+					System.out.print ("Escolha seu número:");
+					try
+					{
+						numero = Teclado.getUmInt();
+					}
+					catch (Exception erro)
+					{
+						System.err.println ("Número invalido!\n");
+						continue;
+					}
+					System.out.println ("Seu número: " + valor.toString());
                 }
                 else if (comunicado instanceof PedidoDeResultado)
                 {
-                    this.usuario.receba (new Resultado (this.valor));
+					//ver qual é o vencedor
+					String vencedor;
+					if((this.numero + this.numeroOutro) % 2 = 0)
+					{
+						if(this.usuario.getEscolha() == 'P')
+							vencedor = this.usuario.getNome();
+						else
+							vencedor = outroUsuario.getNome(); // como pegar o outro usuario
+					}
+
+                    this.usuario.receba (new Resultado (vencedor));
                 }
                 else if (comunicado instanceof PedidoParaSair)
                 {
