@@ -5,6 +5,7 @@ public class Cliente
 {
 	public static final String HOST_PADRAO  = "177.220.18.44";
 	public static final int    PORTA_PADRAO = 3000;
+	private String nome;
 
 	public static void main (String[] args)
 	{
@@ -25,7 +26,7 @@ public class Cliente
 
             if (args.length==2)
                 porta = Integer.parseInt(args[1]);
-System.out.println (host+" "+porta);
+			System.out.println (host+" "+porta);
             conexao = new Socket (host, porta);
         }
         catch (Exception erro)
@@ -63,11 +64,13 @@ System.out.println (host+" "+porta);
             return;
         }
 
+
+
         Parceiro servidor=null;
         try
         {
             servidor =
-            new Parceiro (conexao, receptor, transmissor);
+            new Parceiro (conexao, receptor, transmissor, "");
         }
         catch (Exception erro)
         {			erro.printStackTrace();
@@ -76,16 +79,18 @@ System.out.println (host+" "+porta);
             return;
         }
 
+        servidor.receba(new PedidoDeNome());
+        Nome nome = (Nome)servidor.envie();
+        servidor.setNome(nome.getNome());
+
+		System.out.print("Digite seu nome: ");
+		this.nome = Teclado.getUmString();
+
         char opcao=' ';
         do
         {
-            System.out.print ("Sua opcao (" +
-                              "A=Adicao/" +
-                              "S=Subtracao/" +
-                              "M=Multiplicacao/" +
-                              "D=Divisao/" +
-                              "V=Ver valor/" +
-                              "T=Terminar)" +
+            System.out.print ("J = Jogar" +
+                              "S = Sair)" +
                               "? ");
 
             try
@@ -98,7 +103,7 @@ System.out.println (host+" "+porta);
 				continue;
 			}
 
-			if ("ASMDVT".indexOf(opcao)==-1)
+			if ("JS".indexOf(opcao)==-1)
 		    {
 				System.err.println ("Opcao invalida!\n");
 				continue;
@@ -106,43 +111,68 @@ System.out.println (host+" "+porta);
 
 			try
 			{
-				double valor=0;
-				if ("ASMD".indexOf(opcao)!=-1)
+				if (opcao == "J")
 				{
-					System.out.print ("Valor? ");
+					char escolha = ' '; // tem q usar Escolha escolha ou apenaix char escolha?
+					int escolhedor = (int)(Math.random());
+					if(escolhedor == 0)
+					{
+						System.out.print ("Par [P] ou ímpar [I]?");
+						try
+						{
+							escolha = Teclado.getUmChar();
+						}
+						catch (Exception erro)
+						{
+							System.err.println ("Opcao invalida!\n");
+							continue;
+						}
+						if ("PI".indexOf(opcao)==-1)
+						{
+							System.err.println ("Opcao invalida!\n");
+							continue;
+						}
+					}
+					else
+						System.out.print("Aguarde...");
+
+					servidor.receba(new PedidoDeJogo(escolha));
+
+					switch(escolha)
+					{
+						case 'P':
+						System.out.println ("Você é par");
+						break;
+						case 'I':
+						System.out.println ("Você é ímpar");
+						break;
+						case ' ':
+						Escolha escolhaDoOutro = (Escolha) servidor.envie();
+						if(escolhaDoOutro.getEscolha() == 'P')
+							System.out.println ("Você é ímpar");
+						else if(escolhaDoOutro.getEscolha() == 'I')
+							System.out.println ("Você é par");
+					}
+
+					int valor=0;
+					System.out.print ("Escolha seu número:");
 					try
 					{
-						valor = Teclado.getUmDouble();
+						valor = Teclado.getUmInt();
 					}
 					catch (Exception erro)
 					{
-						System.err.println ("Valor invalido!\n");
+						System.err.println ("Número invalido!\n");
 						continue;
 					}
+					System.out.println ("Seu número: " + valor.toString());
+					servidor.receba(new PedidoDeNumero(valor));
+					Numero numeroDoOutro = (Numero)servidor.envie();
+					System.out.println ("Número oponente: "+numeroDoOutro.getNumero());
 
-					switch (opcao)
-					{
-						case 'A':
-							servidor.receba (new PedidoDeAdicao (valor));
-							break;
-
-						case 'S':
-							servidor.receba (new PedidoDeSubtracao (valor));
-							break;
-
-						case 'M':
-							servidor.receba (new PedidoDeMultiplicacao (valor));
-							break;
-
-						case 'D':
-							servidor.receba (new PedidoDeDivisao (valor));
-					}
-				}
-				else if (opcao=='V')
-				{
-					servidor.receba (new PedidoDeResultado ());
-					Resultado resultado = (Resultado)servidor.envie ();
-					System.out.println ("Resultado atual: "+resultado.getValorResultante());
+					servidor.receba (new PedidoDeResultado());
+					Resultado resultado = (Resultado)servidor.envie();
+					System.out.println ("E o vencedor é: "+resultado.getVencedor());
 				}
 			}
 			catch (Exception erro)
@@ -153,7 +183,6 @@ System.out.println (host+" "+porta);
 				System.err.println ("e volte a tentar mais tarde!");
 			}
         }
-        while (opcao != 'T');
-
+        while (opcao != 'S');
     }
 }

@@ -1,14 +1,14 @@
 public class Resultado extends Comunicado
 {
-    private double valorResultante;
+    private String vencedor;
 
-    public Resultado (double valorResultante)
+    public Resultado (String vencedor)
     {
-        this.valorResultante = valorResultante;
+        this.vencedor = vencedor;
     }
 
-    public double getValorResultante ()
+    public double getVencedor ()
     {
-        return this.valorResultante;
+        return this.vencedor;
     }
 }
