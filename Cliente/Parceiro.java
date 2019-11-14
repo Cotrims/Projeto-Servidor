@@ -9,7 +9,7 @@ public class Parceiro
     private ObjectOutputStream transmissor;
     private String nome;
     private char escolha;
-    boolean escolher;
+    private boolean escolher;
     private int numeroOponente;
 
 	public Parceiro (Socket             conexao,
@@ -52,9 +52,6 @@ public class Parceiro
         if (nome==null)
             throw new Exception ("Nome ausente");
 
-		//if (escolha=='')
-         //   throw new Exception ("Escolha ausente");
-
         this.conexao        = conexao;
         this.receptor       = receptor;
         this.transmissor    = transmissor;
@@ -81,10 +78,10 @@ public class Parceiro
 		return this.escolha;
 	}
 
-	public void setEscolha(char escolha)
+	public void setEscolha(char escolha) throws Exception
 	{
-		//if (escolha=='')
-			//	throw new Exception ("Escolha ausente");
+		if (escolha != 'P' && escolha != 'I' && escolha!= ' ')
+				throw new Exception ("Escolha ausente");
 		 this.escolha = escolha;
 	}
 
@@ -146,4 +143,91 @@ public class Parceiro
             throw new Exception ("Erro de desconexao");
         }
     }
+
+    /**
+		  Clona Parceiro
+		  Produz e retorna uma cópia da instância this de Parceiro.
+		  @return a cópia do this
+		 */
+		public Object clone()
+		{
+			Parceiro ret = null;
+			try
+			{
+				ret = new Parceiro(this);
+			}
+			catch(Exception erro)
+			{}
+			return ret;
+		}
+
+		/**
+		  Gera um String com toda a informação presente na classe Parceiro.
+		  É feito um String que recebe todos os valores de atributos da classe.
+		  @return um String com todos os dados.
+		 */
+		public String toString()
+		{
+			String string = "nome:"+nome+"\n escolha:"+escolha+"\n numero do oponente:"+numeroOponente;
+		}
+
+		/**
+	     Calula e retorna o hashcode da instância do tipo Parceiro.
+	     Calcula o hashcode da classe Parceiro representada pela instância à qual o método for aplicado.
+	     @return o hashcode de quem chamou o método
+	    */
+		public int hashCode()
+		{
+			int ret = 1;
+			ret = 3 * ret + this.nome.hashCode();
+			ret = 3 * ret + conexao.hashCode();
+			ret = 3 * ret + receptor.hashCode();
+			ret = 3 * ret + transmissor.hashCode();
+			ret = 3 * ret + new Character(this.escolha).hashCode();
+			ret = 3 * ret + new Boolean(this.escolher).hashCode();
+			ret = 3 * ret + new Integer(this.numeroOponente).hashCode();
+
+			return ret;
+		}
+
+		/**
+		 Verifica se duas instâncias de Parceiro são iguais.
+	     Verifica se o Object fornecido como parâmetro é a mesma Parceiro da instância, resultando true em caso afirmativo,
+	     ou false, caso não forem iguais.
+	     @param  obj o objeto que vai ser comparado com a instância
+	     @return true caso forem iguais, e false caso forem diferentes
+		*/
+		public boolean equals(Object obj)
+		{
+			if(this == obj)
+				return true;
+
+			if(obj == null)
+				return false;
+
+			if(this.getClass() != obj.getClass())
+				return false;
+
+			Parceiro par = (Parceiro)par;
+
+			//if()...
+			//	return false;
+
+			return true;
+		}
+
+		/**
+	     Constroi uma cópia da instância da classe Parceiro.
+	     Deve ser passado no parametro uma instância de Parceiro para ser
+		 usada como modelo para criar uma nova.
+	     @param par instância de Parceiro que será usada como molde.
+	     @throws Exception caso o molde for nulo.
+	    */
+		public Parceiro (Parceiro par) throws Exception
+		{
+			if(par == null)
+				throw new Exception();
+
+		//	...
+	}
 }
