@@ -109,8 +109,12 @@ public class Parceiro
     {
         try
         {
+
+		System.out.println("bbbb");
             this.transmissor.writeObject (x);
             this.transmissor.flush       ();
+
+		System.out.println("cccc");
         }
         catch (IOException erro)
         {
@@ -149,7 +153,7 @@ public class Parceiro
 		  Produz e retorna uma cópia da instância this de Parceiro.
 		  @return a cópia do this
 		 */
-		public Object clone()
+		/*public Object clone()
 		{
 			Parceiro ret = null;
 			try
@@ -169,6 +173,7 @@ public class Parceiro
 		public String toString()
 		{
 			String string = "nome:"+nome+"\n escolha:"+escolha+"\n numero do oponente:"+numeroOponente;
+			return string;
 		}
 
 		/**
@@ -208,7 +213,7 @@ public class Parceiro
 			if(this.getClass() != obj.getClass())
 				return false;
 
-			Parceiro par = (Parceiro)par;
+			Parceiro par = (Parceiro)obj;
 
 			//if()...
 			//	return false;
@@ -223,11 +228,11 @@ public class Parceiro
 	     @param par instância de Parceiro que será usada como molde.
 	     @throws Exception caso o molde for nulo.
 	    */
-		public Parceiro (Parceiro par) throws Exception
+		/*public Parceiro (Parceiro par) throws Exception
 		{
 			if(par == null)
 				throw new Exception();
 
-		//	...
-	}
+		//	...*/
+	//}
 }

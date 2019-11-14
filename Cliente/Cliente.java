@@ -78,18 +78,22 @@ public class Cliente
 
 	// colocar tudo os negocio bonitinho de par ou impar
 
+
 	System.out.print("Digite seu nome: ");
 	String nome = Teclado.getUmString();
 	try{
+		System.out.println("aaaa");
 		servidor.receba(new PedidoDeNome(nome));
 	}
-	catch(Exception ex){}
+	catch(Exception ex){
+
+		System.out.println(ex.getMessage());}
 
         char opcao=' ';
         do
         {
             System.out.print ("J = Jogar\n" +
-                              "S = Sair)" +
+                              "S = Sair\n" +
                               "? ");
 
             try

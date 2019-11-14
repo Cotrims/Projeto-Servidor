@@ -70,6 +70,8 @@ public class SupervisoraDeConexao extends Thread
 
         try
         {
+
+		System.out.println("ddddd");
             synchronized (this.usuarios)
             {
                 this.usuarios.add (this.usuario);
@@ -79,13 +81,15 @@ public class SupervisoraDeConexao extends Thread
             for(;;)
             {
 				int escolhedor = -1;
+
+		System.out.println("eeeeee");
                 Comunicado comunicado = this.usuario.envie ();
 
                 if(comunicado==null)
                     return;
                 else if (comunicado instanceof PedidoDeNome)
                 {
-                    System.out.print("Digite seu nome: ");
+                    System.out.print("Digite seu nome:ds ");
                     this.usuario.receba (new Nome(Teclado.getUmString()));
 					//this.usuario.setNome(Teclado.getUmString()); // ver onde q isso vai com o gitzel pq tem q passar pro cliente
                 }

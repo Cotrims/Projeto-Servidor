@@ -41,7 +41,7 @@ public class AceitadoraDeConexao extends Thread
     {
         for(;;)
         {
-            Socket conexao=null;
+            Socket conexao = null;
             try
             {
                 conexao = this.pedido.accept();
