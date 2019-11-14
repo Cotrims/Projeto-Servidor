@@ -33,7 +33,7 @@ public class AceitadoraDeConexao extends Thread
         this.usuarios = usuarios;
     }
 
-    public void run () // PEDIR SOCORRO PRO GITZEL
+    public void run ()
     {
         for(;;)
         {

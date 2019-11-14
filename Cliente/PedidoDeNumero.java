@@ -1,14 +1,14 @@
 public class PedidoDeNumero extends Comunicado
 {
-    private int numeroJogador1;
+    private int numeroJogador;
 
-    public PedidoDeNumero (int numeroJogador1)
+    public PedidoDeNumero (int numeroJogador)
     {
-        this.numeroJogador1 = numeroJogador1;
+        this.numeroJogador = numeroJogador;
     }
 
-    public int getNumeroJogador1 ()
+    public int getNumeroJogador()
     {
-        return this.numeroJogador1;
+        return this.numeroJogador;
     }
 }

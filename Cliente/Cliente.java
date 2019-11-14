@@ -5,7 +5,6 @@ public class Cliente
 {
 	public static final String HOST_PADRAO  = "177.220.18.44";
 	public static final int    PORTA_PADRAO = 3000;
-	private String nome;
 
 	public static void main (String[] args)
 	{
@@ -64,13 +63,11 @@ public class Cliente
             return;
         }
 
-
-
         Parceiro servidor=null;
         try
         {
             servidor =
-            new Parceiro (conexao, receptor, transmissor, "");
+            new Parceiro (conexao, receptor, transmissor);
         }
         catch (Exception erro)
         {			erro.printStackTrace();
@@ -79,14 +76,11 @@ public class Cliente
             return;
         }
 
-        servidor.receba(new PedidoDeNome());
-        Nome nome = (Nome)servidor.envie();
-        servidor.setNome(nome.getNome());
-	
 	// colocar tudo os negocio bonitinho de par ou impar
 
 	System.out.print("Digite seu nome: ");
-	this.nome = Teclado.getUmString();
+	String nome = Teclado.getUmString();
+	servidor.receba(new PedidoDeNome(nome));
 
         char opcao=' ';
         do
@@ -115,45 +109,43 @@ public class Cliente
 			{
 				if (opcao == "J")
 				{
-					char escolha = ' '; // tem q usar Escolha escolha ou apenaix char escolha?
-					int escolhedor = (int)(Math.random());
-					if(escolhedor == 0)
+					char escolha=' ';
+					servidor.receba(new PedidoDeJogo());
+					if(this.servidor.getEscolher())
 					{
 						System.out.print ("Par [P] ou ímpar [I]?");
-						try
+						for(;;)
 						{
-							escolha = Teclado.getUmChar();
+							try
+							{
+								escolha = Teclado.getUmChar();
+								if ("PI".indexOf(opcao)!= -1)
+									break;
+								else
+								{
+									System.err.println ("Opcao invalida!\n");
+									continue;
+								}
+							}
+							catch (Exception erro)
+							{
+								System.err.println ("Opcao invalida!\n");
+							}
 						}
-						catch (Exception erro)
-						{
-							System.err.println ("Opcao invalida!\n");
-							continue;
-						}
-						if ("PI".indexOf(opcao)==-1)
-						{
-							System.err.println ("Opcao invalida!\n");
-							continue;
-						}
+						this.servidor.setEscolha(escolha);
+						servidor.receba(new PedidoDeEscolha(escolha));
 					}
 					else
 						System.out.print("Aguarde...");
 
-					servidor.receba(new PedidoDeJogo(escolha));
-
-					switch(escolha)
+					switch(this.servidor.getEscolha())
 					{
 						case 'P':
-						System.out.println ("Você é par");
+							System.out.println ("Você é par");
 						break;
 						case 'I':
-						System.out.println ("Você é ímpar");
-						break;
-						case ' ':
-						Escolha escolhaDoOutro = (Escolha) servidor.envie();
-						if(escolhaDoOutro.getEscolha() == 'P')
 							System.out.println ("Você é ímpar");
-						else if(escolhaDoOutro.getEscolha() == 'I')
-							System.out.println ("Você é par");
+						break;
 					}
 
 					int valor=0;
@@ -169,12 +161,12 @@ public class Cliente
 					}
 					System.out.println ("Seu número: " + valor.toString());
 					servidor.receba(new PedidoDeNumero(valor));
-					Numero numeroDoOutro = (Numero)servidor.envie();
-					System.out.println ("Número oponente: "+numeroDoOutro.getNumero());
+
+					System.out.println ("Número oponente: "+this.servidor.getNumeroOponente());
 
 					servidor.receba (new PedidoDeResultado());
 					Resultado resultado = (Resultado)servidor.envie();
-					System.out.println ("E o vencedor é: "+resultado.getVencedor());
+					System.out.println ("E o vencedor é: " + resultado.getVencedor());
 				}
 			}
 			catch (Exception erro)
@@ -186,5 +178,6 @@ public class Cliente
 			}
         }
         while (opcao != 'S');
+        servidor.receba(new PedidoParaSair());
     }
 }

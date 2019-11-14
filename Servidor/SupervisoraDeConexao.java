@@ -4,8 +4,6 @@ import java.util.*;
 
 public class SupervisoraDeConexao extends Thread
 {
-    private int numero;
-	private int numeroOutro;
     private Parceiro            usuario;
     private Socket              conexao;
     private ArrayList<Parceiro> usuarios;
@@ -80,9 +78,10 @@ public class SupervisoraDeConexao extends Thread
 
             for(;;)
             {
+				int escolhedor;
                 Comunicado comunicado = this.usuario.envie ();
 
-                if      (comunicado==null)
+                if(comunicado==null)
                     return;
                 else if (comunicado instanceof PedidoDeNome)
                 {
@@ -93,57 +92,43 @@ public class SupervisoraDeConexao extends Thread
                 else if (comunicado instanceof PedidoDeJogo)
                 {
 					PedidoDeJogo pedido = (PedidoDeJogo)comunicado;
-					escolha = pedido.getEscolha();
-					if(escolha == ' ')
-					{
-						System.out.print ("Par [P] ou ímpar [I]?");
-						try
-						{
-							escolha = Teclado.getUmChar();
-						}
-						catch (Exception erro)
-						{
-							System.err.println ("Opcao invalida!\n");
-							continue;
-						}
-						if ("PI".indexOf(opcao)==-1)
-						{
-							System.err.println ("Opcao invalida!\n");
-							continue;
-						}
-					}
-					else if(escolha == 'P')
-						System.out.print("Você é ímpar");
-						else if(escolha == 'I')
-							System.out.print("Você é par");
-					this.usuario.setEscolha(escolha);
+					escolhedor = Math.random();
+					usuarios[escolhedor].setEscolher(true);
+                }
+                else if (comunicado instanceof PedidoDeEscolha)
+				{
+					int ind;
+					char esc;
+					if(escolhedor == 0)
+						ind = 1;
+					else
+						ind = 0;
+					if(this.usuarios[escolhedor].getEscolha() == 'P')
+						esc = 'I';
+					else
+						esc = 'P';
+					this.usuarios[ind].setEscolha(esc);
                 }
                 else if (comunicado instanceof PedidoDeNumero)
 				{
 					PedidoDeNumero pedido = (PedidoDeNumero)comunicado;
-					numeroOutro = pedido.getNumero();
-					System.out.print ("Escolha seu número:");
-					try
-					{
-						numero = Teclado.getUmInt();
-					}
-					catch (Exception erro)
-					{
-						System.err.println ("Número invalido!\n");
-						continue;
-					}
-					System.out.println ("Seu número: " + valor.toString());
+					int numero = pedido.getNumero();
+					this.usuario.setNumero(numero);
+					if(this.usuarios[0].equals(this.usuario))
+						this.usuarios[1].setNumeroOponente(numero);
+					else
+						this.usuarios[0].setNumeroOponente(numero);
+
                 }
                 else if (comunicado instanceof PedidoDeResultado)
                 {
-					//ver qual é o vencedor
 					String vencedor;
-					if((this.numero + this.numeroOutro) % 2 = 0)
+					if((this.usuarios[0].getNumero + this.usuarios[1].getNumero) % 2 == 0)
 					{
-						if(this.usuario.getEscolha() == 'P')
-							vencedor = this.usuario.getNome();
+						if(this.usuarios[0].getEscolha() == 'P')
+							vencedor = this.usuarios[0].getNome();
 						else
-							vencedor = outroUsuario.getNome(); // como pegar o outro usuario
+							vencedor = this.usuarios[1].getNome();
 					}
 
                     this.usuario.receba (new Resultado (vencedor));
