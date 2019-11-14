@@ -11,6 +11,7 @@ public class Parceiro
     private char escolha;
     boolean escolher;
     private int numeroOponente;
+    private int numero;
 
 	public Parceiro (Socket             conexao,
 	                     ObjectInputStream  receptor,
@@ -37,7 +38,8 @@ public class Parceiro
                      String nome,
 		     		 char escolha,
 		     		 boolean escolher,
-		     		 int numeroOponente)
+		     		 int numeroOponente,
+		     		 int numero)
                      throws Exception // se parametro nulos
     {
         if (conexao==null)
@@ -52,8 +54,8 @@ public class Parceiro
         if (nome==null)
             throw new Exception ("Nome ausente");
 
-		//if (escolha=='')
-         //   throw new Exception ("Escolha ausente");
+		if (escolha!='P' && escolha!='I' && escolha!=' ')
+           throw new Exception ("Escolha inválida");
 
         this.conexao        = conexao;
         this.receptor       = receptor;
@@ -81,11 +83,21 @@ public class Parceiro
 		return this.escolha;
 	}
 
-	public void setEscolha(char escolha)
+	public void setEscolha(char escolha)throws Exception
 	{
-		//if (escolha=='')
-			//	throw new Exception ("Escolha ausente");
-		 this.escolha = escolha;
+		if (escolha!='P' && escolha!='I' && escolha!=' ')
+           throw new Exception ("Escolha inválida");
+		this.escolha = escolha;
+	}
+
+	public int getNumero()
+	{
+		return this.numero;
+	}
+
+	public void setNumero(int numero)
+	{
+		 this.numero = numero;
 	}
 
 	public void setEscolher(boolean escolher)

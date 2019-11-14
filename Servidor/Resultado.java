@@ -7,7 +7,7 @@ public class Resultado extends Comunicado
         this.vencedor = vencedor;
     }
 
-    public double getVencedor ()
+    public String getVencedor ()
     {
         return this.vencedor;
     }

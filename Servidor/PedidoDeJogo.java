@@ -7,7 +7,7 @@ public class PedidoDeJogo extends Comunicado
         this.escolha = escolha;
     }
 
-    public double getEscolha ()
+    public char getEscolha ()
     {
         return this.escolha;
     }

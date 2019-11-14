@@ -78,7 +78,7 @@ public class SupervisoraDeConexao extends Thread
 
             for(;;)
             {
-				int escolhedor;
+				int escolhedor = -1;
                 Comunicado comunicado = this.usuario.envie ();
 
                 if(comunicado==null)
@@ -91,9 +91,8 @@ public class SupervisoraDeConexao extends Thread
                 }
                 else if (comunicado instanceof PedidoDeJogo)
                 {
-					PedidoDeJogo pedido = (PedidoDeJogo)comunicado;
-					escolhedor = Math.random();
-					usuarios[escolhedor].setEscolher(true);
+					escolhedor = new Random().nextInt(1);
+					usuarios.get(escolhedor).setEscolher(true);
                 }
                 else if (comunicado instanceof PedidoDeEscolha)
 				{
@@ -103,34 +102,33 @@ public class SupervisoraDeConexao extends Thread
 						ind = 1;
 					else
 						ind = 0;
-					if(this.usuarios[escolhedor].getEscolha() == 'P')
+					if(this.usuarios.get(escolhedor).getEscolha() == 'P')
 						esc = 'I';
 					else
 						esc = 'P';
-					this.usuarios[ind].setEscolha(esc);
+					this.usuarios.get(ind).setEscolha(esc);
                 }
                 else if (comunicado instanceof PedidoDeNumero)
 				{
 					PedidoDeNumero pedido = (PedidoDeNumero)comunicado;
-					int numero = pedido.getNumero();
+					int numero = pedido.getNumeroJogador();
 					this.usuario.setNumero(numero);
-					if(this.usuarios[0].equals(this.usuario))
-						this.usuarios[1].setNumeroOponente(numero);
+					if(this.usuarios.get(0).equals(this.usuario))
+						this.usuarios.get(1).setNumeroOponente(numero);
 					else
-						this.usuarios[0].setNumeroOponente(numero);
+						this.usuarios.get(0).setNumeroOponente(numero);
 
                 }
                 else if (comunicado instanceof PedidoDeResultado)
                 {
-					String vencedor;
-					if((this.usuarios[0].getNumero + this.usuarios[1].getNumero) % 2 == 0)
+					String vencedor="";
+					if((this.usuarios.get(0).getNumero() + this.usuarios.get(1).getNumero()) % 2 == 0)
 					{
-						if(this.usuarios[0].getEscolha() == 'P')
-							vencedor = this.usuarios[0].getNome();
+						if(this.usuarios.get(0).getEscolha() == 'P')
+							vencedor = this.usuarios.get(0).getNome();
 						else
-							vencedor = this.usuarios[1].getNome();
+							vencedor = this.usuarios.get(1).getNome();
 					}
-
                     this.usuario.receba (new Resultado (vencedor));
                 }
                 else if (comunicado instanceof PedidoParaSair)

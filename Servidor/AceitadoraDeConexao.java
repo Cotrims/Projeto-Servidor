@@ -19,13 +19,17 @@ public class AceitadoraDeConexao extends Thread
             try
             {
                 porta = Integer.parseInt(escolha);
-                this.pedido = new ServerSocket (porta);
             }
             catch (Exception  erro)
             {
                 throw new Exception ("Porta invalida");
             }
         }
+        try
+        {
+        	this.pedido = new ServerSocket (porta);
+		}
+		catch(Exception ex){}
 
         if (usuarios==null)
             throw new Exception ("Usuarios ausentes");

@@ -3,7 +3,7 @@ import java.io.*;
 
 public class Cliente
 {
-	public static final String HOST_PADRAO  = "177.220.18.44";
+	public static final String HOST_PADRAO  = "localhost";
 	public static final int    PORTA_PADRAO = 3000;
 
 	public static void main (String[] args)
@@ -31,7 +31,7 @@ public class Cliente
         catch (Exception erro)
         {			erro.printStackTrace();
 
-            System.err.println ("Indique o servidor e a porta corretos!\n");
+            System.err.println ("1Indique o servidor e a porta corretos!\n");
             return;
         }
 
@@ -45,7 +45,7 @@ public class Cliente
         catch (Exception erro)
         {			erro.printStackTrace();
 
-            System.err.println ("Indique o servidor e a porta corretos!\n");
+            System.err.println ("2Indique o servidor e a porta corretos!\n");
             return;
         }
 
@@ -59,7 +59,7 @@ public class Cliente
         catch (Exception erro)
         {			erro.printStackTrace();
 
-            System.err.println ("Indique o servidor e a porta corretos!\n");
+            System.err.println ("3Indique o servidor e a porta corretos!\n");
             return;
         }
 
@@ -72,7 +72,7 @@ public class Cliente
         catch (Exception erro)
         {			erro.printStackTrace();
 
-            System.err.println ("Indique o servidor e a porta corretos!\n");
+            System.err.println ("4Indique o servidor e a porta corretos!\n");
             return;
         }
 
@@ -80,12 +80,15 @@ public class Cliente
 
 	System.out.print("Digite seu nome: ");
 	String nome = Teclado.getUmString();
-	servidor.receba(new PedidoDeNome(nome));
+	try{
+		servidor.receba(new PedidoDeNome(nome));
+	}
+	catch(Exception ex){}
 
         char opcao=' ';
         do
         {
-            System.out.print ("J = Jogar" +
+            System.out.print ("J = Jogar\n" +
                               "S = Sair)" +
                               "? ");
 
@@ -107,11 +110,11 @@ public class Cliente
 
 			try
 			{
-				if (opcao == "J")
+				if (opcao == 'J')
 				{
 					char escolha=' ';
 					servidor.receba(new PedidoDeJogo());
-					if(this.servidor.getEscolher())
+					if(servidor.getEscolher())
 					{
 						System.out.print ("Par [P] ou ímpar [I]?");
 						for(;;)
@@ -132,13 +135,13 @@ public class Cliente
 								System.err.println ("Opcao invalida!\n");
 							}
 						}
-						this.servidor.setEscolha(escolha);
+						servidor.setEscolha(escolha);
 						servidor.receba(new PedidoDeEscolha(escolha));
 					}
 					else
 						System.out.print("Aguarde...");
 
-					switch(this.servidor.getEscolha())
+					switch(servidor.getEscolha())
 					{
 						case 'P':
 							System.out.println ("Você é par");
@@ -159,10 +162,10 @@ public class Cliente
 						System.err.println ("Número invalido!\n");
 						continue;
 					}
-					System.out.println ("Seu número: " + valor.toString());
+					System.out.println ("Seu número: " + valor);
 					servidor.receba(new PedidoDeNumero(valor));
 
-					System.out.println ("Número oponente: "+this.servidor.getNumeroOponente());
+					System.out.println ("Número oponente: "+servidor.getNumeroOponente());
 
 					servidor.receba (new PedidoDeResultado());
 					Resultado resultado = (Resultado)servidor.envie();
@@ -178,6 +181,9 @@ public class Cliente
 			}
         }
         while (opcao != 'S');
-        servidor.receba(new PedidoParaSair());
+        try{
+        	servidor.receba(new PedidoParaSair());
+		}
+		catch(Exception ex){}
     }
 }

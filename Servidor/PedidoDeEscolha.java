@@ -7,7 +7,7 @@ public class PedidoDeEscolha extends Comunicado
         this.escolha = escolha;
     }
 
-    public char getEscolha ()
+    public int getEscolha ()
     {
         return this.escolha;
     }

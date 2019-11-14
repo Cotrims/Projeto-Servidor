@@ -4,7 +4,7 @@ public class Escolha extends Comunicado
 
     public Escolha (char escolha)throws Exception
     {
-		if(escolha == null || (escolha !='P' && escolha !='I' && escolha !=' '))
+		if(escolha !='P' && escolha !='I' && escolha !=' ')
 			throw new Exception("Escolha inválida");
         this.escolha = escolha;
     }
