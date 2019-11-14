@@ -1,7 +1,7 @@
 /**
 A classe Numero é uma herança de Comunicado que serve para
 passar o atributo numero entre o servidor e os clientes, atraves do
-instancia de Numero.
+instancia de Numero. Essa classe possui o construtor e um getter.
 @author Giovanna Pavani Martelli.
 @author Maria Luiza Sperancin Mancebo.
 @author Rodrigo Smith Rodrigues.

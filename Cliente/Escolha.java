@@ -2,6 +2,7 @@
 A classe Escolha é uma herança de Comunicado que serve para
 passar o atributo escolha entre o servidor e os clientes, atraves do
 instancia de Escolha.
+Essa classe possui o construtor e um getter.
 @author Giovanna Pavani Martelli.
 @author Maria Luiza Sperancin Mancebo.
 @author Rodrigo Smith Rodrigues.

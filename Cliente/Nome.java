@@ -2,6 +2,7 @@
 A classe Nome é uma herança de Comunicado que serve para
 passar o atributo nome entre o servidor e os clientes, atraves do
 instancia de Nome.
+Essa classe possui o construtor e um getter.
 @author Giovanna Pavani Martelli.
 @author Maria Luiza Sperancin Mancebo.
 @author Rodrigo Smith Rodrigues.
