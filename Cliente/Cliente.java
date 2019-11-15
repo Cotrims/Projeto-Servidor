@@ -78,7 +78,7 @@ public class Cliente
         
         try
 		{
-			System.out.println("Aguardando um oponente...");
+			System.out.println("Aguardando outro jogador...");
 			ComunicadoIniciar inicio = (ComunicadoIniciar)servidor.envie();
 		}
 		catch(Exception e)
@@ -87,21 +87,28 @@ public class Cliente
 	// colocar tudo os negocio bonitinho de par ou impar
         
     //if(inicio.getIniciar){faz tudo} else????
-
-	System.out.print("Digite seu nome: ");
-	String nome = Teclado.getUmString();
-	try{
-		System.out.println("aaaa");
-		servidor.receba(new PedidoDeNome(nome));
-	}
-	catch(Exception ex){System.out.println(ex.getMessage());}
+        
+    System.out.print("Digite seu nome: ");
+    for(;;)
+    {
+		String nome = Teclado.getUmString();
+		try{
+			System.out.println("aaaa");
+			servidor.receba(new PedidoDeNome(nome));
+			break;
+		}
+		catch(Exception ex)
+		{
+			System.out.println("Nome inválido! Digite novamente:");
+		}
+    }
 
         char opcao=' ';
         do
         {
             System.out.print ("O que deseja fazer, querido usuário?" +
-            		          "J = Jogar\n" +
-                              "S = Sair\n");
+            		          "   J = Jogar\n" +
+                              "   S = Sair\n");
 
             try
             {
@@ -207,7 +214,8 @@ public class Cliente
 			}
         }
         while (opcao != 'S');
-        try{
+        try
+        {
         	servidor.receba(new PedidoParaSair());
 		}
 		catch(Exception ex){}
