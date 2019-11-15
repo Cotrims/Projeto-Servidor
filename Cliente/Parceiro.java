@@ -51,7 +51,7 @@ public class Parceiro
 
         if (nome==null)
             throw new Exception ("Nome ausente");
-        
+
         if (escolha != 'P' && escolha != 'I' && escolha!= ' ')
 			throw new Exception ("Escolha inválida");
 
@@ -151,12 +151,12 @@ public class Parceiro
         }
     }
 
-    /**
+          /**
 		  Clona Parceiro
 		  Produz e retorna uma cópia da instância this de Parceiro.
 		  @return a cópia do this
 		 */
-		/*public Object clone()
+		public Object clone()
 		{
 			Parceiro ret = null;
 			try
@@ -218,8 +218,11 @@ public class Parceiro
 
 			Parceiro par = (Parceiro)obj;
 
-			//if()...
-			//	return false;
+			if(this.escolha != par.escolha || this.escolher != par.escolher || this.numeroOponente != par.numeroOponente || this.nome != par.nome)
+			return false;
+
+			if(this.conexao.compareTo(par.conexao) != 0 || this.receptor.compareTo(par.receptor) != 0  || this.transmissor.compareTo(par.transmissor) != 0)
+			return false;
 
 			return true;
 		}
@@ -231,11 +234,17 @@ public class Parceiro
 	     @param par instância de Parceiro que será usada como molde.
 	     @throws Exception caso o molde for nulo.
 	    */
-		/*public Parceiro (Parceiro par) throws Exception
+		public Parceiro (Parceiro par) throws Exception
 		{
 			if(par == null)
 				throw new Exception();
 
-		//	...*/
-	//}
+			this.escolha = par.escolha;
+			this.escolher = par.escolher;
+			this.numeroOponente = par.numeroOponente;
+			this.nome = par.nome;
+			this.conexao = par.conexao.clone();
+			this.receptor = par.receptor.clone();
+			this.transmissor = par.transmissor.clone();
+	}
 }
