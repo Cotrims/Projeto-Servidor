@@ -79,7 +79,7 @@ public class Cliente
         try
 		{
 			System.out.println("Aguardando outro jogador...");
-			ComunicadoIniciar inicio = (ComunicadoIniciar)servidor.envie();
+			ComunicadoDeIniciar inicio = (ComunicadoDeIniciar)servidor.envie();
 		}
 		catch(Exception e)
 		{}

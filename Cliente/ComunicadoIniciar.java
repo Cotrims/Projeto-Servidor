@@ -1,7 +1,7 @@
-public class ComunicadoIniciar extends Comunicado
+public class ComunicadoDeIniciar extends Comunicado
 {
 	private boolean iniciar;
-	public ComunicadoIniciar(boolean iniciar)
+	public ComunicadoDeIniciar(boolean iniciar)
 	{
 		this.iniciar = iniciar;
 	}
