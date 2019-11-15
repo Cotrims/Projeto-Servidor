@@ -10,7 +10,7 @@ Nela encontramos o construtor e um getter.
 */
 public class PedidoDeEscolha extends Comunicado
 {
-	/**Armazena a escolha em um char*/
+	/*/**Armazena a escolha em um char
     private char escolha;
 
     /**
@@ -18,7 +18,7 @@ public class PedidoDeEscolha extends Comunicado
     Para tanto, deve ser fornecido um char que será atribuido à
     variavel escolha.
     @param escolha o char que será atribuido.
-    */
+    
     public PedidoDeEscolha(char escolha)
     {
         this.escolha = escolha;
@@ -28,7 +28,7 @@ public class PedidoDeEscolha extends Comunicado
 	Retorna atributo escolha
     Retorna o atributo escolha da instância à qual este método for aplicado.
 	@return o char escolha
-	*/
+	
     public char getEscolha ()
     {
         return this.escolha;
@@ -39,7 +39,7 @@ public class PedidoDeEscolha extends Comunicado
  Método que retorna o hash code da instância da classe
  Calcula o hashcode da escolha representada pela instância à qual o método for aplicado.
  @return o hashcode de quem chamou o método
- */
+ 
 	public int hashCode()
 	{
 		int ret = 1;
@@ -55,7 +55,7 @@ public class PedidoDeEscolha extends Comunicado
   ou false, caso não forem iguais.
   @param obj do tipo Object é  o objeto com o qual this será comparado
   @return boolean se this é igual a obj
-  */
+  
 	public boolean equals(Object obj)
 	{
 		if(this == obj)
@@ -79,12 +79,12 @@ public class PedidoDeEscolha extends Comunicado
   Gera um String com toda a informação presente na classe PedidoDeEscolha.
   É feito um String que recebe o char escolha.
   @return um String com a escolha.
-  */
+  
 	public String toString()
 	{
 		String saida = ""+escolha;
 		return saida;
 	}
-
+*/
 
 }

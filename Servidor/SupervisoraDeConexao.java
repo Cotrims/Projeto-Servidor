@@ -7,6 +7,7 @@ public class SupervisoraDeConexao extends Thread
     private Parceiro            usuario;
     private Socket              conexao;
     private ArrayList<Parceiro> usuarios;
+    private static int qtdJogadores = 0;
 
     public SupervisoraDeConexao
     (Socket conexao, ArrayList<Parceiro> usuarios)
@@ -75,6 +76,12 @@ public class SupervisoraDeConexao extends Thread
             synchronized (this.usuarios)
             {
                 this.usuarios.add (this.usuario);
+                this.qtdJogadores++;
+                if(this.qtdJogadores == 2)
+                	for(Parceiro jogador: this.usuarios)
+                	{
+						jogador.receba(new ComunicadoIniciar(true));
+					} 
             }
 
 
@@ -82,15 +89,18 @@ public class SupervisoraDeConexao extends Thread
             {
 				int escolhedor = -1;
 
-		System.out.println("eeeeee");
+				System.out.println("eeeeee");
                 Comunicado comunicado = this.usuario.envie ();
 
                 if(comunicado==null)
                     return;
-                else if (comunicado instanceof PedidoDeNome)
+                
+                if (comunicado instanceof PedidoDeNome)
                 {
-                    System.out.print("Digite seu nome:ds ");
-                    this.usuario.receba (new Nome(Teclado.getUmString()));
+                	PedidoDeNome comuni = (PedidoDeNome) comunicado;
+                	String nome = comuni.getNome();
+                    this.usuario.setNome(nome);
+                    //this.usuario.receba (new Nome(Teclado.getUmString()));
 					//this.usuario.setNome(Teclado.getUmString()); // ver onde q isso vai com o gitzel pq tem q passar pro cliente
                 }
                 else if (comunicado instanceof PedidoDeJogo)
@@ -98,7 +108,7 @@ public class SupervisoraDeConexao extends Thread
 					escolhedor = new Random().nextInt(1);
 					usuarios.get(escolhedor).setEscolher(true);
                 }
-                else if (comunicado instanceof PedidoDeEscolha)
+                else if (comunicado instanceof PedidoDeEscolha) // tirar parametro
 				{
 					int ind;
 					char esc;
@@ -125,14 +135,7 @@ public class SupervisoraDeConexao extends Thread
                 }
                 else if (comunicado instanceof PedidoDeResultado)
                 {
-					String vencedor="";
-					if((this.usuarios.get(0).getNumero() + this.usuarios.get(1).getNumero()) % 2 == 0)
-					{
-						if(this.usuarios.get(0).getEscolha() == 'P')
-							vencedor = this.usuarios.get(0).getNome();
-						else
-							vencedor = this.usuarios.get(1).getNome();
-					}
+					String vencedor = this.quemGanhou();
                     this.usuario.receba (new Resultado (vencedor));
                 }
                 else if (comunicado instanceof PedidoParaSair)
@@ -157,5 +160,19 @@ public class SupervisoraDeConexao extends Thread
 
             return;
         }
+        
+    }
+    
+    private String quemGanhou() 
+    {
+    	String vencedor="";
+		if((this.usuarios.get(0).getNumero() + this.usuarios.get(1).getNumero()) % 2 == 0)
+		{
+			if(this.usuarios.get(0).getEscolha() == 'P')
+				vencedor = this.usuarios.get(0).getNome();
+			else
+				vencedor = this.usuarios.get(1).getNome();
+		}
+		return vencedor;
     }
 }

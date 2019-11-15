@@ -75,9 +75,18 @@ public class Cliente
             System.err.println ("4Indique o servidor e a porta corretos!\n");
             return;
         }
+        
+        try
+		{
+			System.out.println("Aguardando um oponente...");
+			ComunicadoIniciar inicio = (ComunicadoIniciar)servidor.envie();
+		}
+		catch(Exception e)
+		{}
 
 	// colocar tudo os negocio bonitinho de par ou impar
-
+        
+    //if(inicio.getIniciar){faz tudo} else????
 
 	System.out.print("Digite seu nome: ");
 	String nome = Teclado.getUmString();
@@ -85,16 +94,14 @@ public class Cliente
 		System.out.println("aaaa");
 		servidor.receba(new PedidoDeNome(nome));
 	}
-	catch(Exception ex){
-
-		System.out.println(ex.getMessage());}
+	catch(Exception ex){System.out.println(ex.getMessage());}
 
         char opcao=' ';
         do
         {
-            System.out.print ("J = Jogar\n" +
-                              "S = Sair\n" +
-                              "? ");
+            System.out.print ("O que deseja fazer, querido usuário?" +
+            		          "J = Jogar\n" +
+                              "S = Sair\n");
 
             try
             {
@@ -118,6 +125,15 @@ public class Cliente
 				{
 					char escolha=' ';
 					servidor.receba(new PedidoDeJogo());
+					boolean primeira = true;
+					while(!servidor.getEscolher() && servidor.getEscolha()==' ')
+					{
+						if(primeira)
+						{
+							System.out.print("Aguarde...");
+							primeira = false;
+						}
+					}
 					if(servidor.getEscolher())
 					{
 						System.out.print ("Par [P] ou ímpar [I]?");
@@ -140,10 +156,8 @@ public class Cliente
 							}
 						}
 						servidor.setEscolha(escolha);
-						servidor.receba(new PedidoDeEscolha(escolha));
+						servidor.receba(new PedidoDeEscolha());
 					}
-					else
-						System.out.print("Aguarde...");
 
 					switch(servidor.getEscolha())
 					{
@@ -156,7 +170,7 @@ public class Cliente
 					}
 
 					int valor=0;
-					System.out.print ("Escolha seu número:");
+					System.out.print ("Escolha seu número: ");
 					try
 					{
 						valor = Teclado.getUmInt();
@@ -168,7 +182,15 @@ public class Cliente
 					}
 					System.out.println ("Seu número: " + valor);
 					servidor.receba(new PedidoDeNumero(valor));
-
+					primeira = true;
+					while(servidor.getNumeroOponente() == 0)
+					{
+						if(primeira)
+						{
+							System.out.println("O seu oponente está escolhendo o número...");
+							primeira = false;
+						}
+					}
 					System.out.println ("Número oponente: "+servidor.getNumeroOponente());
 
 					servidor.receba (new PedidoDeResultado());

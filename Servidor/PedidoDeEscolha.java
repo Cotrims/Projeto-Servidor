@@ -1,6 +1,6 @@
 public class PedidoDeEscolha extends Comunicado
 {
-    private char escolha;
+   /* private char escolha;
 
     public PedidoDeEscolha(char escolha)
     {
@@ -10,5 +10,5 @@ public class PedidoDeEscolha extends Comunicado
     public int getEscolha ()
     {
         return this.escolha;
-    }
+    }*/
 }
