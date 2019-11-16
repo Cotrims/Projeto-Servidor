@@ -1,10 +1,11 @@
 /**A classe ComunicadoDeDesligamento herda de Comunicado e serve para
-indicar ao servidor que ele irá ser desativado.
-Nela não encontramos nenhum método.
+indicar ao servidor que ele irï¿½ ser desativado.
+Nela nï¿½o encontramos nenhum mï¿½todo.
 @author Giovanna Pavani Martelli.
 @author Maria Luiza Sperancin Mancebo.
 @author Rodrigo Smith Rodrigues.
-@author Vinícius Martins Cotrim.
+@author Vinï¿½cius Martins Cotrim.
 @since 2019.*/
 public class ComunicadoDeDesligamento extends Comunicado
-{}
+{
+}

@@ -25,13 +25,12 @@ public class Cliente
 
             if (args.length==2)
                 porta = Integer.parseInt(args[1]);
-			System.out.println (host+" "+porta);
             conexao = new Socket (host, porta);
         }
         catch (Exception erro)
         {			erro.printStackTrace();
 
-            System.err.println ("1Indique o servidor e a porta corretos!\n");
+            System.err.println ("Indique o servidor e a porta corretos!\n");
             return;
         }
 
@@ -45,7 +44,7 @@ public class Cliente
         catch (Exception erro)
         {			erro.printStackTrace();
 
-            System.err.println ("2Indique o servidor e a porta corretos!\n");
+            System.err.println ("Indique o servidor e a porta corretos!\n");
             return;
         }
 
@@ -59,7 +58,7 @@ public class Cliente
         catch (Exception erro)
         {			erro.printStackTrace();
 
-            System.err.println ("3Indique o servidor e a porta corretos!\n");
+            System.err.println ("Indique o servidor e a porta corretos!\n");
             return;
         }
 
@@ -72,22 +71,23 @@ public class Cliente
         catch (Exception erro)
         {			erro.printStackTrace();
 
-            System.err.println ("4Indique o servidor e a porta corretos!\n");
+            System.err.println ("Indique o servidor e a porta corretos!\n");
             return;
         }
-        
+        ComunicadoDeIniciar inicio = null;
         try
 		{
 			System.out.println("Aguardando outro jogador...");
-			ComunicadoDeIniciar inicio = (ComunicadoDeIniciar)servidor.envie();
+			inicio = (ComunicadoDeIniciar)servidor.envie();
 		}
 		catch(Exception e)
 		{}
 
+	 System.out.println(inicio);
 	// colocar tudo os negocio bonitinho de par ou impar
-        
+
     //if(inicio.getIniciar){faz tudo} else????
-        
+
     System.out.print("Digite seu nome: ");
     for(;;)
     {
@@ -99,14 +99,14 @@ public class Cliente
 		}
 		catch(Exception ex)
 		{
-			System.out.println("Nome inválido! Digite novamente:");
+			System.out.println("Nome invï¿½lido! Digite novamente:");
 		}
     }
 
         char opcao=' ';
         do
         {
-            System.out.print ("O que deseja fazer, querido usuário?" +
+            System.out.print ("O que deseja fazer, querido usuï¿½rio?" +
             		          "   J = Jogar\n" +
                               "   S = Sair\n");
 
@@ -143,7 +143,7 @@ public class Cliente
 					}
 					if(servidor.getEscolher())
 					{
-						System.out.print ("Par [P] ou ímpar [I]?");
+						System.out.print ("Par [P] ou ï¿½mpar [I]?");
 						for(;;)
 						{
 							try
@@ -169,40 +169,40 @@ public class Cliente
 					switch(servidor.getEscolha())
 					{
 						case 'P':
-							System.out.println ("Você é par");
+							System.out.println ("Vocï¿½ ï¿½ par");
 						break;
 						case 'I':
-							System.out.println ("Você é ímpar");
+							System.out.println ("Vocï¿½ ï¿½ ï¿½mpar");
 						break;
 					}
 
 					int valor=0;
-					System.out.print ("Escolha seu número: ");
+					System.out.print ("Escolha seu nï¿½mero: ");
 					try
 					{
 						valor = Teclado.getUmInt();
 					}
 					catch (Exception erro)
 					{
-						System.err.println ("Número invalido!\n");
+						System.err.println ("Nï¿½mero invalido!\n");
 						continue;
 					}
-					System.out.println ("Seu número: " + valor);
+					System.out.println ("Seu nï¿½mero: " + valor);
 					servidor.receba(new PedidoDeNumero(valor));
 					primeira = true;
 					while(servidor.getNumeroOponente() == 0)
 					{
 						if(primeira)
 						{
-							System.out.println("O seu oponente está escolhendo o número...");
+							System.out.println("O seu oponente estï¿½ escolhendo o nï¿½mero...");
 							primeira = false;
 						}
 					}
-					System.out.println ("Número oponente: "+servidor.getNumeroOponente());
+					System.out.println ("Nï¿½mero oponente: "+servidor.getNumeroOponente());
 
 					servidor.receba (new PedidoDeResultado());
 					Resultado resultado = (Resultado)servidor.envie();
-					System.out.println ("E o vencedor é: " + resultado.getVencedor());
+					System.out.println ("E o vencedor ï¿½: " + resultado.getVencedor());
 				}
 			}
 			catch (Exception erro)

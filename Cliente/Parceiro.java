@@ -53,7 +53,7 @@ public class Parceiro
             throw new Exception ("Nome ausente");
 
         if (escolha != 'P' && escolha != 'I' && escolha!= ' ')
-			throw new Exception ("Escolha inválida");
+			throw new Exception ("Escolha invï¿½lida");
 
         this.conexao        = conexao;
         this.receptor       = receptor;
@@ -84,7 +84,7 @@ public class Parceiro
 	public void setEscolha(char escolha) throws Exception
 	{
 		if (escolha != 'P' && escolha != 'I' && escolha!= ' ')
-				throw new Exception ("Escolha inválida");
+				throw new Exception ("Escolha invï¿½lida");
 		 this.escolha = escolha;
 	}
 
@@ -153,8 +153,8 @@ public class Parceiro
 
           /**
 		  Clona Parceiro
-		  Produz e retorna uma cópia da instância this de Parceiro.
-		  @return a cópia do this
+		  Produz e retorna uma cï¿½pia da instï¿½ncia this de Parceiro.
+		  @return a cï¿½pia do this
 		 */
 		public Object clone()
 		{
@@ -169,8 +169,8 @@ public class Parceiro
 		}
 
 		/**
-		  Gera um String com toda a informação presente na classe Parceiro.
-		  É feito um String que recebe todos os valores de atributos da classe.
+		  Gera um String com toda a informaï¿½ï¿½o presente na classe Parceiro.
+		  ï¿½ feito um String que recebe todos os valores de atributos da classe.
 		  @return um String com todos os dados.
 		 */
 		public String toString()
@@ -180,9 +180,9 @@ public class Parceiro
 		}
 
 		/**
-	     Calula e retorna o hashcode da instância do tipo Parceiro.
-	     Calcula o hashcode da classe Parceiro representada pela instância à qual o método for aplicado.
-	     @return o hashcode de quem chamou o método
+	     Calula e retorna o hashcode da instï¿½ncia do tipo Parceiro.
+	     Calcula o hashcode da classe Parceiro representada pela instï¿½ncia ï¿½ qual o mï¿½todo for aplicado.
+	     @return o hashcode de quem chamou o mï¿½todo
 	    */
 		public int hashCode()
 		{
@@ -199,10 +199,10 @@ public class Parceiro
 		}
 
 		/**
-		 Verifica se duas instâncias de Parceiro são iguais.
-	     Verifica se o Object fornecido como parâmetro é a mesma Parceiro da instância, resultando true em caso afirmativo,
-	     ou false, caso não forem iguais.
-	     @param  obj o objeto que vai ser comparado com a instância
+		 Verifica se duas instï¿½ncias de Parceiro sï¿½o iguais.
+	     Verifica se o Object fornecido como parï¿½metro ï¿½ a mesma Parceiro da instï¿½ncia, resultando true em caso afirmativo,
+	     ou false, caso nï¿½o forem iguais.
+	     @param  obj o objeto que vai ser comparado com a instï¿½ncia
 	     @return true caso forem iguais, e false caso forem diferentes
 		*/
 		public boolean equals(Object obj)
@@ -219,19 +219,19 @@ public class Parceiro
 			Parceiro par = (Parceiro)obj;
 
 			if(this.escolha != par.escolha || this.escolher != par.escolher || this.numeroOponente != par.numeroOponente || this.nome != par.nome)
-			return false;
+				return false;
 
-			if(this.conexao.compareTo(par.conexao) != 0 || this.receptor.compareTo(par.receptor) != 0  || this.transmissor.compareTo(par.transmissor) != 0)
-			return false;
+			if(!this.conexao.equals(par.conexao) || !this.receptor.equals(par.receptor) || !this.transmissor.equals(par.transmissor))
+				return false;
 
 			return true;
 		}
 
 		/**
-	     Constroi uma cópia da instância da classe Parceiro.
-	     Deve ser passado no parametro uma instância de Parceiro para ser
+	     Constroi uma cï¿½pia da instï¿½ncia da classe Parceiro.
+	     Deve ser passado no parametro uma instï¿½ncia de Parceiro para ser
 		 usada como modelo para criar uma nova.
-	     @param par instância de Parceiro que será usada como molde.
+	     @param par instï¿½ncia de Parceiro que serï¿½ usada como molde.
 	     @throws Exception caso o molde for nulo.
 	    */
 		public Parceiro (Parceiro par) throws Exception
@@ -243,8 +243,8 @@ public class Parceiro
 			this.escolher = par.escolher;
 			this.numeroOponente = par.numeroOponente;
 			this.nome = par.nome;
-			this.conexao = par.conexao.clone();
-			this.receptor = par.receptor.clone();
-			this.transmissor = par.transmissor.clone();
+			this.conexao = (Socket)par.conexao;
+			this.receptor = (ObjectInputStream)par.receptor;
+			this.transmissor = (ObjectOutputStream)par.transmissor;
 	}
 }
