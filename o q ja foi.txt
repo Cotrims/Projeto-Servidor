@@ -1,0 +1,7 @@
+Cliente - main ent n tem java docs nem metodos obrigatorios
+Comunicado - OK
+ComunicadoDeDesligamento - OK
+Escolha - OK
+Nome - OK
+Numero - OK
+Parceiro - FAZER DOCS e terminar equals/construtor de copia
