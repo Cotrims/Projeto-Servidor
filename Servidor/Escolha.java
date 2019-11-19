@@ -1,94 +1,89 @@
 /**
-A classe Escolha é uma herança de Comunicado que serve para
-passar o atributo escolha entre o servidor e os clientes, atraves do
-instancia de Escolha.
-Essa classe possui o construtor e um getter.
-@author Giovanna Pavani Martelli.
-@author Maria Luiza Sperancin Mancebo.
-@author Rodrigo Smith Rodrigues.
-@author Vinícius Martins Cotrim.
-@since 2019.
-*/
-public class Escolha extends Comunicado
-{
-	/**Armazena a escolha em um char*/
-    private char escolha;
+ * A classe Escolha ï¿½ uma heranï¿½a de Comunicado que serve para passar o atributo
+ * escolha entre o servidor e os clientes, atraves do instancia de Escolha. Essa
+ * classe possui o construtor e um getter.
+ * 
+ * @author Giovanna Pavani Martelli.
+ * @author Maria Luiza Sperancin Mancebo.
+ * @author Rodrigo Smith Rodrigues.
+ * @author Vinï¿½cius Martins Cotrim.
+ * @since 2019.
+ */
+public class Escolha extends Comunicado {
+	/** Armazena a escolha em um char */
+	private char escolha;
 
-    /**
-    Constroi uma nova instância da classe Escolha.
-    Para tanto, deve ser fornecido um char que será atribuido à
-    variavel escolha.
-    @param escolha o char que será atribuido.
-    @throws Exception se o char enviado for diferente de 'P','I' ou ' '.
-    */
-    public Escolha (char escolha)throws Exception
-    {
-		if(escolha !='P' && escolha !='I' && escolha !=' ')
-			throw new Exception("Escolha inválida");
-        this.escolha = escolha;
-    }
+	/**
+	 * Constroi uma nova instï¿½ncia da classe Escolha. Para tanto, deve ser fornecido
+	 * um char que serï¿½ atribuido ï¿½ variavel escolha.
+	 * 
+	 * @param escolha o char que serï¿½ atribuido.
+	 * @throws Exception se o char enviado for diferente de 'P','I' ou ' '.
+	 */
+	public Escolha(char escolha) throws Exception {
+		if (escolha != 'P' && escolha != 'I' && escolha != ' ')
+			throw new Exception("Escolha invï¿½lida");
+		this.escolha = escolha;
+	}
 
-    /**
-	Retorna atributo escolha
-    Retorna o atributo escolha da instância à qual este método for aplicado.
-	@return o char escolha
-	*/
-    public char getEscolha()
-    {
-        return this.escolha;
-    }
+	/**
+	 * Retorna atributo escolha Retorna o atributo escolha da instï¿½ncia ï¿½ qual este
+	 * mï¿½todo for aplicado.
+	 * 
+	 * @return o char escolha
+	 */
+	public char getEscolha() {
+		return this.escolha;
+	}
 
-     /**
-     Método que retorna o hash code da instância da classe
-     Calcula o hashcode da escolha representada pela instância à qual o método for aplicado.
-     @return o hashcode de quem chamou o método
-     */
-		public int hashCode()
-		{
-			int ret = 1;
-			ret = 3 * ret + new Character (this.escolha).hashCode();
+	/**
+	 * Mï¿½todo que retorna o hash code da instï¿½ncia da classe Calcula o hashcode da
+	 * escolha representada pela instï¿½ncia ï¿½ qual o mï¿½todo for aplicado.
+	 * 
+	 * @return o hashcode de quem chamou o mï¿½todo
+	 */
+	public int hashCode() {
+		int ret = 1;
+		ret = 3 * ret + new Character(this.escolha).hashCode();
 
-			return ret;
-	    }
+		return ret;
+	}
 
-
-	  /**
-	  Método que retorna se o this é igual ao parametro obj do tipo objeto
-	  Verifica se o Object fornecido como parâmetro é o mesmo da instância, resultando true em caso afirmativo,
-	  ou false, caso não forem iguais.
-	  @param obj do tipo Object é  o objeto com o qual this será comparado
-	  @return boolean se this é igual a obj
-	  */
-		public boolean equals(Object obj)
-		{
-			if(this == obj)
-				return true;
-
-			if(obj == null)
-				return false;
-
-			if(this.getClass() != obj.getClass())
-				return false;
-
-			Escolha esc = (Escolha)obj;
-
-			if(this.escolha != esc.escolha)
-				return false;
-
+	/**
+	 * Mï¿½todo que retorna se o this ï¿½ igual ao parametro obj do tipo objeto Verifica
+	 * se o Object fornecido como parï¿½metro ï¿½ o mesmo da instï¿½ncia, resultando true
+	 * em caso afirmativo, ou false, caso nï¿½o forem iguais.
+	 * 
+	 * @param obj do tipo Object ï¿½ o objeto com o qual this serï¿½ comparado
+	 * @return boolean se this ï¿½ igual a obj
+	 */
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true;
-		}
 
-	  /**
-	  Gera um String com toda a informação presente na classe Escolha.
-	  É feito um String que recebe o char escolha.
-	  @return um String com a escolha.
-	  */
-		public String toString()
-		{
-			String saida = ""+escolha;
-			return saida;
-		}
+		if (obj == null)
+			return false;
 
+		if (this.getClass() != obj.getClass())
+			return false;
 
+		Escolha esc = (Escolha) obj;
+
+		if (this.escolha != esc.escolha)
+			return false;
+
+		return true;
+	}
+
+	/**
+	 * Gera um String com toda a informaï¿½ï¿½o presente na classe Escolha. ï¿½ feito um
+	 * String que recebe o char escolha.
+	 * 
+	 * @return um String com a escolha.
+	 */
+	public String toString() {
+		String saida = "" + escolha;
+		return saida;
+	}
 
 }

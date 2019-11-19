@@ -1,13 +1,12 @@
 import java.io.*;
 /**A classe Comunicado foi feita para englobar todas
-as classes que passam informação entre Servidor e Cliente.
-Nela não encontramos nenhum método.
+as classes que passam informaï¿½ï¿½o entre Servidor e Cliente.
+Nela nï¿½o encontramos nenhum mï¿½todo.
 @author Giovanna Pavani Martelli.
 @author Maria Luiza Sperancin Mancebo.
 @author Rodrigo Smith Rodrigues.
-@author Vinícius Martins Cotrim.
+@author Vinï¿½cius Martins Cotrim.
 @since 2019.*/
 public class Comunicado implements Serializable, Cloneable
 {
-
 }

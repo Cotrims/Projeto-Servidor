@@ -1,6 +1,5 @@
 import java.io.*;
 import java.net.*;
-import java.util.*;
 
 public class Parceiro
 {
@@ -10,7 +9,7 @@ public class Parceiro
     private String nome;
     private char escolha;
     private boolean escolher;
-    private int numeroOponente;
+    private int numero;
 
 	public Parceiro (Socket             conexao,
                      ObjectInputStream  receptor,
@@ -37,7 +36,7 @@ public class Parceiro
                      String nome,
 		     		 char escolha,
 		     		 boolean escolher,
-		     		 int numeroOponente)
+		     		 int numero)
                      throws Exception // se parametro nulos
     {
         if (conexao==null)
@@ -53,7 +52,7 @@ public class Parceiro
             throw new Exception ("Nome ausente");
 
         if (escolha != 'P' && escolha != 'I' && escolha!= ' ')
-			throw new Exception ("Escolha inv�lida");
+			throw new Exception ("Escolha invalida");
 
         this.conexao        = conexao;
         this.receptor       = receptor;
@@ -61,7 +60,7 @@ public class Parceiro
         this.nome           = nome;
 		this.escolha        = escolha;
 		this.escolher       = escolher;
-		this.numeroOponente = numeroOponente;
+		this.numero = numero;
     }
 
 	public String getNome()
@@ -84,7 +83,7 @@ public class Parceiro
 	public void setEscolha(char escolha) throws Exception
 	{
 		if (escolha != 'P' && escolha != 'I' && escolha!= ' ')
-				throw new Exception ("Escolha inv�lida");
+				throw new Exception ("Escolha invalida");
 		 this.escolha = escolha;
 	}
 
@@ -98,26 +97,22 @@ public class Parceiro
 		return this.escolher;
 	}
 
-	public void setNumeroOponente(int numeroOponente)
+	public void setnumero(int numero)
 	{
-		 this.numeroOponente = numeroOponente;
+		 this.numero = numero;
 	}
 
-	public int getNumeroOponente()
+	public int getnumero()
 	{
-		return this.numeroOponente;
+		return this.numero;
 	}
 
     public void receba (Comunicado x) throws Exception
     {
         try
         {
-
-		System.out.println("bbbb");
             this.transmissor.writeObject (x);
             this.transmissor.flush       ();
-
-		System.out.println("cccc");
         }
         catch (IOException erro)
         {
@@ -129,7 +124,7 @@ public class Parceiro
     {
         try
         {
-            return (Comunicado)this.receptor.readObject();
+			return (Comunicado)this.receptor.readObject();
         }
         catch (Exception erro)
         {
@@ -153,8 +148,8 @@ public class Parceiro
 
           /**
 		  Clona Parceiro
-		  Produz e retorna uma c�pia da inst�ncia this de Parceiro.
-		  @return a c�pia do this
+		  Produz e retorna uma copia da instancia this de Parceiro.
+		  @return a copia do this
 		 */
 		public Object clone()
 		{
@@ -169,20 +164,20 @@ public class Parceiro
 		}
 
 		/**
-		  Gera um String com toda a informa��o presente na classe Parceiro.
-		  � feito um String que recebe todos os valores de atributos da classe.
+		  Gera um String com toda a informacao presente na classe Parceiro.
+		  O feito um String que recebe todos os valores de atributos da classe.
 		  @return um String com todos os dados.
 		 */
 		public String toString()
 		{
-			String string = "nome:"+nome+"\n escolha:"+escolha+"\n numero do oponente:"+numeroOponente;
+			String string = "nome:"+nome+"\n escolha:"+escolha+"\n numero do oponente:"+numero;
 			return string;
 		}
 
 		/**
-	     Calula e retorna o hashcode da inst�ncia do tipo Parceiro.
-	     Calcula o hashcode da classe Parceiro representada pela inst�ncia � qual o m�todo for aplicado.
-	     @return o hashcode de quem chamou o m�todo
+	     Calula e retorna o hashcode da instancia do tipo Parceiro.
+	     Calcula o hashcode da classe Parceiro representada pela instancia a qual o metodo for aplicado.
+	     @return o hashcode de quem chamou o metodo
 	    */
 		public int hashCode()
 		{
@@ -193,16 +188,16 @@ public class Parceiro
 			ret = 3 * ret + transmissor.hashCode();
 			ret = 3 * ret + new Character(this.escolha).hashCode();
 			ret = 3 * ret + new Boolean(this.escolher).hashCode();
-			ret = 3 * ret + new Integer(this.numeroOponente).hashCode();
+			ret = 3 * ret + new Integer(this.numero).hashCode();
 
 			return ret;
 		}
 
 		/**
-		 Verifica se duas inst�ncias de Parceiro s�o iguais.
-	     Verifica se o Object fornecido como par�metro � a mesma Parceiro da inst�ncia, resultando true em caso afirmativo,
-	     ou false, caso n�o forem iguais.
-	     @param  obj o objeto que vai ser comparado com a inst�ncia
+		 Verifica se duas instancias de Parceiro sao iguais.
+	     Verifica se o Object fornecido como parametro eh a mesma Parceiro da instancia, resultando true em caso afirmativo,
+	     ou false, caso nao forem iguais.
+	     @param  obj o objeto que vai ser comparado com a instancia
 	     @return true caso forem iguais, e false caso forem diferentes
 		*/
 		public boolean equals(Object obj)
@@ -218,7 +213,7 @@ public class Parceiro
 
 			Parceiro par = (Parceiro)obj;
 
-			if(this.escolha != par.escolha || this.escolher != par.escolher || this.numeroOponente != par.numeroOponente || this.nome != par.nome)
+			if(this.escolha != par.escolha || this.escolher != par.escolher || this.numero != par.numero || this.nome != par.nome)
 				return false;
 
 			if(!this.conexao.equals(par.conexao) || !this.receptor.equals(par.receptor) || !this.transmissor.equals(par.transmissor))
@@ -228,10 +223,10 @@ public class Parceiro
 		}
 
 		/**
-	     Constroi uma c�pia da inst�ncia da classe Parceiro.
-	     Deve ser passado no parametro uma inst�ncia de Parceiro para ser
+	     Constroi uma copia da instancia da classe Parceiro.
+	     Deve ser passado no parametro uma instancia de Parceiro para ser
 		 usada como modelo para criar uma nova.
-	     @param par inst�ncia de Parceiro que ser� usada como molde.
+	     @param par instancia de Parceiro que sera usada como molde.
 	     @throws Exception caso o molde for nulo.
 	    */
 		public Parceiro (Parceiro par) throws Exception
@@ -241,7 +236,7 @@ public class Parceiro
 
 			this.escolha = par.escolha;
 			this.escolher = par.escolher;
-			this.numeroOponente = par.numeroOponente;
+			this.numero = par.numero;
 			this.nome = par.nome;
 			this.conexao = (Socket)par.conexao;
 			this.receptor = (ObjectInputStream)par.receptor;

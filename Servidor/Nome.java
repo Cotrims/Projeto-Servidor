@@ -1,90 +1,87 @@
 /**
-A classe Nome é uma herança de Comunicado que serve para
-passar o atributo nome entre o servidor e os clientes, atraves do
-instancia de Nome.
-Essa classe possui o construtor e um getter.
-@author Giovanna Pavani Martelli.
-@author Maria Luiza Sperancin Mancebo.
-@author Rodrigo Smith Rodrigues.
-@author Vinícius Martins Cotrim.
-@since 2019.
-*/
-public class Nome extends Comunicado
-{
-	/**Armazena o nome*/
-    private String nome;
+ * A classe Nome ï¿½ uma heranï¿½a de Comunicado que serve para passar o atributo
+ * nome entre o servidor e os clientes, atraves do instancia de Nome. Essa
+ * classe possui o construtor e um getter.
+ * 
+ * @author Giovanna Pavani Martelli.
+ * @author Maria Luiza Sperancin Mancebo.
+ * @author Rodrigo Smith Rodrigues.
+ * @author Vinï¿½cius Martins Cotrim.
+ * @since 2019.
+ */
+public class Nome extends Comunicado {
+	/** Armazena o nome */
+	private String nome;
 
-    /**
-    Constroi uma nova instância da classe Nome.
-    Para tanto, deve ser fornecido uma String que será atribuido à
-    variavel nome.
-    @param nome a String que será atribuido.
-    @throws Exception se a String for nula.
-    */
-    public Nome (String nome)throws Exception
-    {
-		if(nome == null)
-			throw new Exception("Nome inválido");
-        this.nome = nome;
-    }
-
-   /**
-	   Retorna atributo nome
-       Retorna o atributo nome da instância à qual este método for aplicado.
-	   @return a String nome
-	*/
-    public String getNome()
-    {
-        return this.nome;
-    }
-
-	 /**
-	 Método que retorna o hash code da instância da classe
-	 Calcula o hashcode da escolha representada pela instância à qual o método for aplicado.
-	 @return o hashcode de quem chamou o método
+	/**
+	 * Constroi uma nova instï¿½ncia da classe Nome. Para tanto, deve ser fornecido
+	 * uma String que serï¿½ atribuido ï¿½ variavel nome.
+	 * 
+	 * @param nome a String que serï¿½ atribuido.
+	 * @throws Exception se a String for nula.
 	 */
-		public int hashCode()
-		{
-			int ret = 1;
-			ret = 3 * ret + this.nome.hashCode();
+	public Nome(String nome) throws Exception {
+		if (nome == null)
+			throw new Exception("Nome invï¿½lido");
+		this.nome = nome;
+	}
 
-			return ret;
-		}
+	/**
+	 * Retorna atributo nome Retorna o atributo nome da instï¿½ncia ï¿½ qual este mï¿½todo
+	 * for aplicado.
+	 * 
+	 * @return a String nome
+	 */
+	public String getNome() {
+		return this.nome;
+	}
 
+	/**
+	 * Mï¿½todo que retorna o hash code da instï¿½ncia da classe Calcula o hashcode da
+	 * escolha representada pela instï¿½ncia ï¿½ qual o mï¿½todo for aplicado.
+	 * 
+	 * @return o hashcode de quem chamou o mï¿½todo
+	 */
+	public int hashCode() {
+		int ret = 1;
+		ret = 3 * ret + this.nome.hashCode();
 
-	  /**
-	  Método que retorna se o this é igual ao parametro obj do tipo objeto
-	  Verifica se o Object fornecido como parâmetro é o mesmo da instância, resultando true em caso afirmativo,
-	  ou false, caso não forem iguais.
-	  @param obj do tipo Object é  o objeto com o qual this será comparado
-	  @return boolean se this é igual a obj
-	  */
-		public boolean equals(Object obj)
-		{
-			if(this == obj)
-				return true;
+		return ret;
+	}
 
-			if(obj == null)
-				return false;
-
-			if(this.getClass() != obj.getClass())
-				return false;
-
-			Nome nom =(Nome)obj;
-
-			if(this.nome != nom.nome)
-				return false;
-
+	/**
+	 * Mï¿½todo que retorna se o this ï¿½ igual ao parametro obj do tipo objeto Verifica
+	 * se o Object fornecido como parï¿½metro ï¿½ o mesmo da instï¿½ncia, resultando true
+	 * em caso afirmativo, ou false, caso nï¿½o forem iguais.
+	 * 
+	 * @param obj do tipo Object ï¿½ o objeto com o qual this serï¿½ comparado
+	 * @return boolean se this ï¿½ igual a obj
+	 */
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true;
-		}
 
-	  /**
-	  Gera um String com toda a informação presente na classe Nome.
-	  @return um String com o nome.
-	  */
-		public String toString()
-		{
-			return nome;
-		}
+		if (obj == null)
+			return false;
+
+		if (this.getClass() != obj.getClass())
+			return false;
+
+		Nome nom = (Nome) obj;
+
+		if (this.nome != nom.nome)
+			return false;
+
+		return true;
+	}
+
+	/**
+	 * Gera um String com toda a informaï¿½ï¿½o presente na classe Nome.
+	 * 
+	 * @return um String com o nome.
+	 */
+	public String toString() {
+		return nome;
+	}
 
 }

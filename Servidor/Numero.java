@@ -1,88 +1,86 @@
 /**
-A classe Numero é uma herança de Comunicado que serve para
-passar o atributo numero entre o servidor e os clientes, atraves do
-instancia de Numero. Essa classe possui o construtor e um getter.
-@author Giovanna Pavani Martelli.
-@author Maria Luiza Sperancin Mancebo.
-@author Rodrigo Smith Rodrigues.
-@author Vinícius Martins Cotrim.
-@since 2019.
-*/
-public class Numero extends Comunicado
-{
-	/**Armazena um numero int*/
-    private int numero;
+ * A classe Numero ï¿½ uma heranï¿½a de Comunicado que serve para passar o atributo
+ * numero entre o servidor e os clientes, atraves do instancia de Numero. Essa
+ * classe possui o construtor e um getter.
+ * 
+ * @author Giovanna Pavani Martelli.
+ * @author Maria Luiza Sperancin Mancebo.
+ * @author Rodrigo Smith Rodrigues.
+ * @author Vinï¿½cius Martins Cotrim.
+ * @since 2019.
+ */
+public class Numero extends Comunicado {
+	/** Armazena um numero int */
+	private int numero;
 
-    /**
-    Constroi uma nova instância da classe Numero.
-    Para tanto, deve ser fornecido um int que será atribuido à
-    variavel numero.
-    @param numero o int que será atribuido.
-    */
-    public Numero (int numero)
-    {
-        this.numero = numero;
-    }
+	/**
+	 * Constroi uma nova instï¿½ncia da classe Numero. Para tanto, deve ser fornecido
+	 * um int que serï¿½ atribuido ï¿½ variavel numero.
+	 * 
+	 * @param numero o int que serï¿½ atribuido.
+	 */
+	public Numero(int numero) {
+		this.numero = numero;
+	}
 
-   /**
-	Retorna atributo numero
-    Retorna o atributo numero da instância à qual este método for aplicado.
-	@return o int numero
-	*/
-    public int getNumero ()
-    {
-        return this.numero;
-    }
+	/**
+	 * Retorna atributo numero Retorna o atributo numero da instï¿½ncia ï¿½ qual este
+	 * mï¿½todo for aplicado.
+	 * 
+	 * @return o int numero
+	 */
+	public int getNumero() {
+		return this.numero;
+	}
 
-    /**
-	     Método que retorna o hash code da instância da classe
-	     Calcula o hashcode da escolha representada pela instância à qual o método for aplicado.
-	     @return o hashcode de quem chamou o método
-	     */
-			public int hashCode()
-			{
-				int ret = 1;
-				ret = 3 * ret + new Integer (this.numero).hashCode();
+	/**
+	 * Mï¿½todo que retorna o hash code da instï¿½ncia da classe Calcula o hashcode da
+	 * escolha representada pela instï¿½ncia ï¿½ qual o mï¿½todo for aplicado.
+	 * 
+	 * @return o hashcode de quem chamou o mï¿½todo
+	 */
+	public int hashCode() {
+		int ret = 1;
+		ret = 3 * ret + new Integer(this.numero).hashCode();
 
-				return ret;
-		    }
+		return ret;
+	}
 
+	/**
+	 * Mï¿½todo que retorna se o this ï¿½ igual ao parametro obj do tipo objeto Verifica
+	 * se o Object fornecido como parï¿½metro ï¿½ o mesmo da instï¿½ncia, resultando true
+	 * em caso afirmativo, ou false, caso nï¿½o forem iguais.
+	 * 
+	 * @param obj do tipo Object ï¿½ o objeto com o qual this serï¿½ comparado
+	 * @return boolean se this ï¿½ igual a obj
+	 */
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
 
-		  /**
-		  Método que retorna se o this é igual ao parametro obj do tipo objeto
-		  Verifica se o Object fornecido como parâmetro é o mesmo da instância, resultando true em caso afirmativo,
-		  ou false, caso não forem iguais.
-		  @param obj do tipo Object é  o objeto com o qual this será comparado
-		  @return boolean se this é igual a obj
-		  */
-			public boolean equals(Object obj)
-			{
-				if(this == obj)
-					return true;
+		if (obj == null)
+			return false;
 
-				if(obj == null)
-					return false;
+		if (this.getClass() != obj.getClass())
+			return false;
 
-				if(this.getClass() != obj.getClass())
-					return false;
+		Numero num = (Numero) obj;
 
-				Numero num = (Numero)obj;
+		if (this.numero != num.numero)
+			return false;
 
-				if(this.numero != num.numero)
-					return false;
+		return true;
+	}
 
-				return true;
-			}
-
-		  /**
-		  Gera um String com toda a informação presente na classe Numero.
-		  É feito um String que recebe o int numero
-		  @return um String com o numero.
-		  */
-		    public String toString()
-			{
-				String saida = ""+numero;
-				return saida;
-			}
+	/**
+	 * Gera um String com toda a informaï¿½ï¿½o presente na classe Numero. ï¿½ feito um
+	 * String que recebe o int numero
+	 * 
+	 * @return um String com o numero.
+	 */
+	public String toString() {
+		String saida = "" + numero;
+		return saida;
+	}
 
 }

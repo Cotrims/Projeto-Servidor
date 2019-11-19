@@ -1,86 +1,85 @@
-/**A classe ComunicadoDeIniciar herda de Comunicado e serve para
-indicar ao servidor que ele irá iniciar.
-Nela encontramos o construtor e um getter.
-@author Giovanna Pavani Martelli.
-@author Maria Luiza Sperancin Mancebo.
-@author Rodrigo Smith Rodrigues.
-@author Vinícius Martins Cotrim.
-@since 2019.*/
-public class ComunicadoDeIniciar extends Comunicado
-{
-	/**Armazena se pode iniciar ou não em um boolean*/
+/**
+ * A classe ComunicadoDeIniciar herda de Comunicado e serve para indicar ao
+ * servidor que ele irï¿½ iniciar. Nela encontramos o construtor e um getter.
+ * 
+ * @author Giovanna Pavani Martelli.
+ * @author Maria Luiza Sperancin Mancebo.
+ * @author Rodrigo Smith Rodrigues.
+ * @author Vinï¿½cius Martins Cotrim.
+ * @since 2019.
+ */
+public class ComunicadoDeIniciar extends Comunicado {
+	/** Armazena se pode iniciar ou nï¿½o em um boolean */
 	private boolean iniciar;
 
-	  /**
-	    Constroi uma nova instância da classe ComunicadoDeIniciar.
-	    Para tanto, deve ser fornecido um boolean que será atribuido à
-	    variavel iniciar.
-	    @param iniciar diz se pode ou não iniciar.
-    */
-	public ComunicadoDeIniciar(boolean iniciar)
-	{
+	/**
+	 * Constroi uma nova instï¿½ncia da classe ComunicadoDeIniciar. Para tanto, deve
+	 * ser fornecido um boolean que serï¿½ atribuido ï¿½ variavel iniciar.
+	 * 
+	 * @param iniciar diz se pode ou nï¿½o iniciar.
+	 */
+	public ComunicadoDeIniciar(boolean iniciar) {
 		this.iniciar = iniciar;
 	}
 
 	/**
-	Retorna atributo iniciar
-    Retorna o atributo iniciar da instância à qual este método for aplicado.
-	@return o boolean iniciar
-	*/
-	public boolean getIniciar()
-	{
+	 * Retorna atributo iniciar Retorna o atributo iniciar da instï¿½ncia ï¿½ qual este
+	 * mï¿½todo for aplicado.
+	 * 
+	 * @return o boolean iniciar
+	 */
+	public boolean getIniciar() {
 		return this.iniciar;
 	}
 
-	 /**
-	     Método que retorna o hash code da instância da classe
-	     Calcula o hashcode da escolha representada pela instância à qual o método for aplicado.
-	     @return o hashcode de quem chamou o método
-	     */
-			public int hashCode()
-			{
-				int ret = 1;
-				ret = 3 * ret + new Boolean (this.iniciar).hashCode();
+	/**
+	 * Mï¿½todo que retorna o hash code da instï¿½ncia da classe Calcula o hashcode da
+	 * escolha representada pela instï¿½ncia ï¿½ qual o mï¿½todo for aplicado.
+	 * 
+	 * @return o hashcode de quem chamou o mï¿½todo
+	 */
+	public int hashCode() {
+		int ret = 1;
+		ret = 3 * ret + new Boolean(this.iniciar).hashCode();
 
-				return ret;
-		    }
+		return ret;
+	}
 
+	/**
+	 * Mï¿½todo que retorna se o this ï¿½ igual ao parametro obj do tipo objeto Verifica
+	 * se o Object fornecido como parï¿½metro ï¿½ o mesmo da instï¿½ncia, resultando true
+	 * em caso afirmativo, ou false, caso nï¿½o forem iguais.
+	 * 
+	 * @param obj do tipo Object ï¿½ o objeto com o qual this serï¿½ comparado
+	 * @return boolean se this ï¿½ igual a obj
+	 */
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
 
-		  /**
-		  Método que retorna se o this é igual ao parametro obj do tipo objeto
-		  Verifica se o Object fornecido como parâmetro é o mesmo da instância, resultando true em caso afirmativo,
-		  ou false, caso não forem iguais.
-		  @param obj do tipo Object é  o objeto com o qual this será comparado
-		  @return boolean se this é igual a obj
-		  */
-			public boolean equals(Object obj)
-			{
-				if(this == obj)
-					return true;
+		if (obj == null)
+			return false;
 
-				if(obj == null)
-					return false;
+		if (this.getClass() != obj.getClass())
+			return false;
 
-				if(this.getClass() != obj.getClass())
-					return false;
+		ComunicadoDeIniciar com = (ComunicadoDeIniciar) obj;
 
-				ComunicadoDeIniciar com = (ComunicadoDeIniciar)obj;
+		if (this.iniciar != com.iniciar)
+			return false;
 
-				if(this.iniciar != com.iniciar)
-					return false;
+		return true;
+	}
 
-				return true;
-			}
-
-		  /**
-		  Gera um String de acordo com o atributo iniciar se pode ou não iniciar.
-		  @return um String de pode ou não pode.
-		  */
-			public String toString()
-			{
-				if(this.iniciar == true)
-				return "pode iniciar";
-				else
-				return "não pode iniciar";
-		}
+	/**
+	 * Gera um String de acordo com o atributo iniciar se pode ou nï¿½o iniciar.
+	 * 
+	 * @return um String de pode ou nï¿½o pode.
+	 */
+	public String toString() {
+		if (this.iniciar == true)
+			return "pode iniciar";
+		else
+			return "nï¿½o pode iniciar";
+	}
 }

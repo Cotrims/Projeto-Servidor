@@ -4,7 +4,7 @@ Nela encontramos o construtor e um getter de nome.
 @author Giovanna Pavani Martelli.
 @author Maria Luiza Sperancin Mancebo.
 @author Rodrigo Smith Rodrigues.
-@author Vinícius Martins Cotrim.
+@author Vinï¿½cius Martins Cotrim.
 @since 2019.*/
 public class PedidoDeNome extends Comunicado
 {
@@ -12,10 +12,10 @@ public class PedidoDeNome extends Comunicado
     private String nome;
 
 	/**
-	Constroi uma nova instância da classe PedidoDeNome.
-	Para tanto, deve ser fornecido uma String que será atribuida à
+	Constroi uma nova instï¿½ncia da classe PedidoDeNome.
+	Para tanto, deve ser fornecido uma String que serï¿½ atribuida ï¿½
 	variavel nome.
-	@param nome a String que será atribuida.
+	@param nome a String que serï¿½ atribuida.
 	*/
     public PedidoDeNome(String nome)
     {
@@ -24,7 +24,7 @@ public class PedidoDeNome extends Comunicado
 
 	/**
 	Retorna atributo nome
-	Retorna o atributo nome da instância a qual este método for aplicado.
+	Retorna o atributo nome da instï¿½ncia a qual este mï¿½todo for aplicado.
 	@return a String nome
 	*/
     public String getNome ()
@@ -33,9 +33,9 @@ public class PedidoDeNome extends Comunicado
     }
 
 	/**
-	 Método que retorna o hash code da instância da classe
-	 Calcula o hashcode do nome representada pela instância a qual o método for aplicado.
-	 @return o hashcode de quem chamou o método
+	 Mï¿½todo que retorna o hash code da instï¿½ncia da classe
+	 Calcula o hashcode do nome representada pela instï¿½ncia a qual o mï¿½todo for aplicado.
+	 @return o hashcode de quem chamou o mï¿½todo
 	 */
 	public int hashCode()
 	{
@@ -46,11 +46,11 @@ public class PedidoDeNome extends Comunicado
 
 
     /**
-    Método que retorna se o this é igual ao parametro obj do tipo objeto
-    Verifica se o Object fornecido como parâmetro é o mesmo da instância, resultando true em caso afirmativo,
-    ou false, caso não forem iguais.
-    @param obj do tipo Object é  o objeto com o qual this será comparado
-    @return boolean se this é igual a obj
+    Mï¿½todo que retorna se o this ï¿½ igual ao parametro obj do tipo objeto
+    Verifica se o Object fornecido como parï¿½metro ï¿½ o mesmo da instï¿½ncia, resultando true em caso afirmativo,
+    ou false, caso nï¿½o forem iguais.
+    @param obj do tipo Object ï¿½  o objeto com o qual this serï¿½ comparado
+    @return boolean se this ï¿½ igual a obj
     */
 	public boolean equals(Object obj)
 	{
@@ -72,8 +72,8 @@ public class PedidoDeNome extends Comunicado
 	}
 
     /**
-    Gera um String com toda a informação presente na classe PedidoDeNome.
-    É feito um String que recebe a String nome.
+    Gera um String com toda a informaï¿½ï¿½o presente na classe PedidoDeNome.
+    ï¿½ feito um String que recebe a String nome.
     @return um String com o nome do Jogador.
      */
 	public String toString()
