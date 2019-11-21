@@ -159,16 +159,22 @@ public class Cliente {
 					System.out.println("Voce eh: " + tipo.toString());
 
 					int valor = 0;
-					try
+
+					for(;;)
 					{
-						System.out.print("Escolha seu numero: ");
-						valor = Teclado.getUmInt();
+						try
+						{
+							System.out.print("Escolha seu numero: ");
+							valor = Teclado.getUmInt();
+							break;
+						}
+						catch (Exception erro)
+						{
+							System.err.println("Numero invalido!");
+							continue;
+						}
 					}
-					catch (Exception erro)
-					{
-						System.err.println("Numero invalido!");
-						continue;
-					}
+
 					servidor.receba(new PedidoDeNumero(valor));
 
 					Resultado resultado = (Resultado) servidor.envie();
