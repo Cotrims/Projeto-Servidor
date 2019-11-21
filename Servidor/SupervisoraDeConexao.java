@@ -157,12 +157,14 @@ public class SupervisoraDeConexao extends Thread
     private String vencedor()
     {
         String vencedor = "";
-        int soma = this.jogadores.get(0).getNumero() + this.jogadores.get(1).getNumero();
+        double soma = this.jogadores.get(0).getNumero() + this.jogadores.get(1).getNumero();
 
         if (this.jogadores.get(0).getTipo() == 'P' && soma % 2 == 0)
             vencedor = this.jogadores.get(0).getNome();
         else
             vencedor = this.jogadores.get(1).getNome();
+
+        System.out.println(this.jogadores.get(0).getTipo() + vencedor = this.jogadores.get(0).getNome() + "|" + vencedor = this.jogadores.get(0).getNome()+  this.jogadores.get(1).getTipo())
 
         return vencedor;
     }
