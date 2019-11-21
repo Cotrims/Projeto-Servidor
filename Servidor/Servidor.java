@@ -1,13 +1,13 @@
 import java.util.*;
 
-public class Servidor 
+public class Servidor //programa de início do servidor.
 {
-    public static void main(String[] args) 
+    public static void main(String[] args) //o vetor de String "args" recebe a porta que será utilizada.
     {
-        if (args.length > 1) 
+        if (args.length > 1) //se o usuário passar mais de um parâmetro, ele iniciou o programa de forma errada.
         {
             System.err.println("Uso esperado: java Servidor [PORTA]\n");
-            return;
+            return; //o programa
         }
 
         String porta = null;
@@ -18,13 +18,13 @@ public class Servidor
         ArrayList<Parceiro> usuarios = new ArrayList<Parceiro>();
 
         AceitadoraDeConexao aceitadoraDeConexao = null;
-        try 
+        try
         {
             aceitadoraDeConexao = new AceitadoraDeConexao(porta, usuarios);
             aceitadoraDeConexao.start();
             System.out.println(aceitadoraDeConexao);
-        } 
-        catch (Exception erro) 
+        }
+        catch (Exception erro)
         {
             System.err.println("Escolha uma porta apropriada e liberada para uso!\n");
             return;
@@ -36,33 +36,33 @@ public class Servidor
             System.out.print("> ");
 
             String comando = null;
-            try 
+            try
             {
                 comando = Teclado.getUmString();
-            } 
-            catch (Exception erro) 
+            }
+            catch (Exception erro)
             {}
 
-            if (comando.toLowerCase().equals("desativar")) 
+            if (comando.toLowerCase().equals("desativar"))
             {
-                synchronized (usuarios) 
+                synchronized (usuarios)
                 {
-                    for (Parceiro usuario : usuarios) 
+                    for (Parceiro usuario : usuarios)
                     {
                         ComunicadoDeDesligamento comunicadoDeDesligamento = new ComunicadoDeDesligamento();
 
-                        try 
+                        try
                         {
                             usuario.receba(comunicadoDeDesligamento);
                             usuario.adeus();
-                        } 
-                        catch (Exception erro) 
+                        }
+                        catch (Exception erro)
                         {}
                     }
                 }
                 System.out.println("O servidor foi desativado!\n");
                 System.exit(0);
-            } 
+            }
             else
                 System.err.println("Comando invalido!\n");
         }
