@@ -96,6 +96,7 @@ public class Parceiro
         }
         catch (Exception erro)
         {
+			erro.printStackTrace();
             throw new Exception ("Erro de recepcao");
         }
     }
