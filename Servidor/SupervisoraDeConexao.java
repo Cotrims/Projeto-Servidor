@@ -76,6 +76,7 @@ public class SupervisoraDeConexao extends Thread
                         jogador.receba(new ComunicadoDeIniciar(true));
 
                         int escolhedor = (int)(Math.random() * 2);
+                        System.out.println(escolhedor);
                         this.jogadores.get(escolhedor).setEscolhedor(true);
                 }
             }
@@ -159,12 +160,13 @@ public class SupervisoraDeConexao extends Thread
         String vencedor = "";
         double soma = this.jogadores.get(0).getNumero() + this.jogadores.get(1).getNumero();
 
-        if (this.jogadores.get(0).getTipo() == 'P' && soma % 2 == 0)
+        if ((this.jogadores.get(0).getTipo() == 'I' && soma % 2 != 0) || (this.jogadores.get(0).getTipo() == 'P' && soma % 2 == 0))
             vencedor = this.jogadores.get(0).getNome();
         else
             vencedor = this.jogadores.get(1).getNome();
 
-        System.out.println(this.jogadores.get(0).getTipo() + vencedor = this.jogadores.get(0).getNome() + "|" + vencedor = this.jogadores.get(0).getNome()+  this.jogadores.get(1).getTipo())
+        System.out.println(this.jogadores.get(0).getTipo() + " " + this.jogadores.get(0).getNome() + "|" +
+        this.jogadores.get(1).getNome() + " " + this.jogadores.get(1).getTipo() + " Soma: " + soma + " Vencedor: " + vencedor);
 
         return vencedor;
     }
