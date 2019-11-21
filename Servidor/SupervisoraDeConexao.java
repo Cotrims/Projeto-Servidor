@@ -165,9 +165,6 @@ public class SupervisoraDeConexao extends Thread
         else
             vencedor = this.jogadores.get(1).getNome();
 
-        System.out.println(this.jogadores.get(0).getTipo() + " " + this.jogadores.get(0).getNome() + "|" +
-        this.jogadores.get(1).getNome() + " " + this.jogadores.get(1).getTipo() + " Soma: " + soma + " Vencedor: " + vencedor);
-
         return vencedor;
     }
 }
