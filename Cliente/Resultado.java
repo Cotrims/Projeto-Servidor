@@ -1,7 +1,7 @@
 /**
 A classe Resultado � uma heran�a de Comunicado que serve para
 passar o atributo vencedor entre o servidor e os clientes, atrav�s do
-inst�ncia de Resultado.
+instancia de Resultado.
 Essa classe possui o construtor e um getter.
 @author Giovanna Pavani Martelli.
 @author Maria Luiza Sperancin Mancebo.

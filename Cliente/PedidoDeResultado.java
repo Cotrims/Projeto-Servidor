@@ -1,10 +1,10 @@
 /**A classe PedidoDeResultado herda de Comunicado e serve para
 indicar ao servidor um pedido de resultado(quem ganhou o jogo).
-Nela não encontramos nenhum método.
+Nela nï¿½o encontramos nenhum mï¿½todo.
 @author Giovanna Pavani Martelli.
 @author Maria Luiza Sperancin Mancebo.
 @author Rodrigo Smith Rodrigues.
-@author Vinícius Martins Cotrim.
+@author Vinï¿½cius Martins Cotrim.
 @since 2019.*/
 public class PedidoDeResultado extends Comunicado
 {}

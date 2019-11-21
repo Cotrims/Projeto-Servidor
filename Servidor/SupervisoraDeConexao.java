@@ -2,12 +2,13 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class SupervisoraDeConexao extends Thread {
+public class SupervisoraDeConexao extends Thread
+{
     private static final PedidoDeNome Comunicado = null;
     private Parceiro jogador;
-    private Socket conexao;
     private ArrayList<Parceiro> jogadores;
-    private static int qtdJogadores = 0;
+    private Socket conexao;
+    private static int numInseridos = 0;
 
     public SupervisoraDeConexao(Socket conexao, ArrayList<Parceiro> jogadores) throws Exception {
         if (conexao == null)
@@ -20,114 +21,149 @@ public class SupervisoraDeConexao extends Thread {
         this.jogadores = jogadores;
     }
 
-    public void run() {
+    public void run()
+    {
         ObjectInputStream receptor = null;
-        try {
-            receptor = new ObjectInputStream(this.conexao.getInputStream());
-        } catch (Exception erro) {
+        try
+        {
+            receptor =
+            new ObjectInputStream(
+            this.conexao.getInputStream());
+        }
+        catch (Exception erro)
+        {
             return;
         }
 
         ObjectOutputStream transmissor;
-        try {
-            transmissor = new ObjectOutputStream(this.conexao.getOutputStream());
-        } catch (Exception erro) {
-            try {
+        try
+        {
+            transmissor =
+            new ObjectOutputStream(
+            this.conexao.getOutputStream());
+        }
+        catch (Exception erro)
+        {
+            try
+            {
                 receptor.close();
-            } catch (Exception falha) {
-            } // so tentando fechar antes de acabar a thread
+            }
+            catch (Exception falha)
+            {} // so tentando fechar antes de acabar a thread
 
             return;
         }
 
-        try {
-            this.jogador = new Parceiro(this.conexao, receptor, transmissor);
-        } catch (Exception erro) {
-        } // sei que passei os parametros corretos
+        try
+        {
+            this.jogador =
+            new Parceiro(this.conexao,
+                         receptor,
+                         transmissor);
+        }
+        catch (Exception erro)
+        {} // sei que passei os parametros corretos
 
-        try {
+        try
+        {
 
-            synchronized (this.jogadores) {
+            synchronized (this.jogadores)
+            {
                 this.jogadores.add(this.jogador);
-                this.qtdJogadores++;
-                if (this.qtdJogadores == 2)
-                    for (Parceiro jogador : this.jogadores) {
+                if (this.jogadores.size() == 2)
+                {
+                    for (Parceiro jogador : this.jogadores)
                         jogador.receba(new ComunicadoDeIniciar(true));
-                    }
+
+                        int escolhedor = (int)(Math.random() * 2);
+                        this.jogadores.get(escolhedor).setEscolhedor(true);
+                }
             }
-
-            for (;;) {
-                int escolhedor = -1;
-
+            for (;;)
+            {
                 Comunicado comunicado = this.jogador.envie();
 
                 if (comunicado == null)
                     return;
 
-                if (comunicado instanceof PedidoDeNome) 
-                    this.jogador.setNome(((PedidoDeNome)Comunicado).getNome());  
-                else if (comunicado instanceof PedidoDeJogo) 
+                if (comunicado instanceof PedidoDeNome)
                 {
-                    escolhedor = new Random().nextInt(1);
-                    jogadores.get(escolhedor).setEscolher(true);
-                } 
-                else if (comunicado instanceof PedidoDeEscolha) // tirar parametro
+                    String nome = ((PedidoDeNome) comunicado).getNome();
+                    this.jogador.setNome(nome);
+                }
+                else if (comunicado instanceof PedidoDeTipo)
                 {
-                    int ind;
-                    char esc;
-                    if (escolhedor == 0)
-                        ind = 1;
+                    PedidoDeTipo pedido = (PedidoDeTipo)comunicado;
+                    char tipo = pedido.getTipo().getTipo();
+                    this.jogador.setTipo(tipo);
+
+                    if(tipo == 'P' && this.jogadores.get(0) == this.jogador)
+                        this.jogadores.get(1).setTipo('I');
                     else
-                        ind = 0;
-                    if (this.jogadores.get(escolhedor).getEscolha() == 'P')
-                        esc = 'I';
+                        this.jogadores.get(0).setTipo('I');
+
+                    if(tipo == 'I' && this.jogadores.get(0) == this.jogador)
+                        this.jogadores.get(1).setTipo('P');
                     else
-                        esc = 'P';
-                    this.jogadores.get(ind).setEscolha(esc);
-                } 
-                else if (comunicado instanceof PedidoDeNumero) 
+                        this.jogadores.get(0).setTipo('P');
+
+                    if(this.jogadores.get(0) == this.jogador)
+                        this.jogadores.get(1).receba(new Tipo(this.jogadores.get(1).getTipo()));
+                    else
+                        this.jogadores.get(1).receba(new Tipo(this.jogadores.get(0).getTipo()));
+                }
+                else if (comunicado instanceof PedidoDeNumero)
                 {
                     PedidoDeNumero pedido = (PedidoDeNumero) comunicado;
                     int numero = pedido.getNumeroJogador();
                     this.jogador.setNumero(numero);
-                    if (this.jogadores.get(0).equals(this.jogador))
-                        this.jogadores.get(1).setNumeroOponente(numero);
-                    else
-                        this.jogadores.get(0).setNumeroOponente(numero);
-
-                } 
-                else if (comunicado instanceof PedidoDeResultado) 
+                    numInseridos++;
+                }
+                else if (comunicado instanceof PedidoDeEscolha)
                 {
-                    this.jogador.receba(new Resultado(vencedor()));
-                } 
-                else if (comunicado instanceof PedidoParaSair) 
+                    jogador.receba(new PedidoDeEscolha(this.jogador.getEscolhedor()));
+                }
+                else if (comunicado instanceof PedidoParaSair)
                 {
-                    synchronized (this.jogadores) {
+                    synchronized (this.jogadores)
+                    {
                         this.jogadores.remove(this.jogador);
                     }
                     this.jogador.adeus();
                 }
+
+                if (numInseridos == 2)
+				{
+					for(Parceiro jogador : jogadores)
+                    	jogador.receba(new Resultado(vencedor()));
+                    numInseridos = 0;
+				}
             }
-        } catch (Exception erro) {
-            try {
+        }
+        catch (Exception erro)
+        {
+            try
+            {
                 transmissor.close();
                 receptor.close();
-            } catch (Exception falha) {
-            } // so tentando fechar antes de acabar a thread
+            }
+            catch (Exception falha)
+            {} // so tentando fechar antes de acabar a thread
 
             return;
         }
-
     }
 
-    private String vencedor() {
+    private String vencedor()
+    {
         String vencedor = "";
-        if ((this.jogadores.get(0).getNumero() + this.jogadores.get(1).getNumero()) % 2 == 0) {
-            if (this.jogadores.get(0).getEscolha() == 'P')
-                vencedor = this.jogadores.get(0).getNome();
-            else
-                vencedor = this.jogadores.get(1).getNome();
-        }
+        int soma = this.jogadores.get(0).getNumero() + this.jogadores.get(1).getNumero();
+
+        if (this.jogadores.get(0).getTipo() == 'P' && soma % 2 == 0)
+            vencedor = this.jogadores.get(0).getNome();
+        else
+            vencedor = this.jogadores.get(1).getNome();
+
         return vencedor;
     }
 }

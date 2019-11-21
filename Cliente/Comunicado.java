@@ -8,6 +8,4 @@ Nela não encontramos nenhum método.
 @author Vinícius Martins Cotrim.
 @since 2019.*/
 public class Comunicado implements Serializable, Cloneable
-{
-
-}
+{}

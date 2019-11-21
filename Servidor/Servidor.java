@@ -1,8 +1,11 @@
 import java.util.*;
 
-public class Servidor {
-    public static void main(String[] args) {
-        if (args.length > 1) {
+public class Servidor 
+{
+    public static void main(String[] args) 
+    {
+        if (args.length > 1) 
+        {
             System.err.println("Uso esperado: java Servidor [PORTA]\n");
             return;
         }
@@ -15,10 +18,14 @@ public class Servidor {
         ArrayList<Parceiro> usuarios = new ArrayList<Parceiro>();
 
         AceitadoraDeConexao aceitadoraDeConexao = null;
-        try {
+        try 
+        {
             aceitadoraDeConexao = new AceitadoraDeConexao(porta, usuarios);
             aceitadoraDeConexao.start();
-        } catch (Exception erro) {
+            System.out.println(aceitadoraDeConexao);
+        } 
+        catch (Exception erro) 
+        {
             System.err.println("Escolha uma porta apropriada e liberada para uso!\n");
             return;
         }
@@ -29,27 +36,34 @@ public class Servidor {
             System.out.print("> ");
 
             String comando = null;
-            try {
+            try 
+            {
                 comando = Teclado.getUmString();
-            } catch (Exception erro) {
-            }
+            } 
+            catch (Exception erro) 
+            {}
 
-            if (comando.toLowerCase().equals("desativar")) {
-                synchronized (usuarios) {
-                    for (Parceiro usuario : usuarios) {
+            if (comando.toLowerCase().equals("desativar")) 
+            {
+                synchronized (usuarios) 
+                {
+                    for (Parceiro usuario : usuarios) 
+                    {
                         ComunicadoDeDesligamento comunicadoDeDesligamento = new ComunicadoDeDesligamento();
 
-                        try {
+                        try 
+                        {
                             usuario.receba(comunicadoDeDesligamento);
                             usuario.adeus();
-                        } catch (Exception erro) {
-                        }
+                        } 
+                        catch (Exception erro) 
+                        {}
                     }
                 }
-
                 System.out.println("O servidor foi desativado!\n");
                 System.exit(0);
-            } else
+            } 
+            else
                 System.err.println("Comando invalido!\n");
         }
     }

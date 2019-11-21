@@ -7,9 +7,9 @@ public class Parceiro
     private ObjectInputStream  receptor;
     private ObjectOutputStream transmissor;
     private String nome;
-    private char escolha;
-    private boolean escolher;
-    private int numero;
+    private char tipo;
+	private int numero;
+	private boolean escolhedor;
 
 	public Parceiro (Socket             conexao,
                      ObjectInputStream  receptor,
@@ -30,39 +30,6 @@ public class Parceiro
 	        this.transmissor = transmissor;
     }
 
-    public Parceiro (Socket             conexao,
-                     ObjectInputStream  receptor,
-                     ObjectOutputStream transmissor,
-                     String nome,
-		     		 char escolha,
-		     		 boolean escolher,
-		     		 int numero)
-                     throws Exception // se parametro nulos
-    {
-        if (conexao==null)
-            throw new Exception ("Conexao ausente");
-
-        if (receptor==null)
-            throw new Exception ("Receptor ausente");
-
-        if (transmissor==null)
-            throw new Exception ("Transmissor ausente");
-
-        if (nome==null)
-            throw new Exception ("Nome ausente");
-
-        if (escolha != 'P' && escolha != 'I' && escolha!= ' ')
-			throw new Exception ("Escolha invalida");
-
-        this.conexao        = conexao;
-        this.receptor       = receptor;
-        this.transmissor    = transmissor;
-        this.nome           = nome;
-		this.escolha        = escolha;
-		this.escolher       = escolher;
-		this.numero = numero;
-    }
-
 	public String getNome()
 	{
 		return this.nome;
@@ -75,36 +42,36 @@ public class Parceiro
          this.nome = nome;
 	}
 
-	public char getEscolha()
+	public char getTipo()
 	{
-		return this.escolha;
+		return this.tipo;
 	}
 
-	public void setEscolha(char escolha) throws Exception
+	public void setTipo(char tipo) throws Exception
 	{
-		if (escolha != 'P' && escolha != 'I' && escolha!= ' ')
-				throw new Exception ("Escolha invalida");
-		 this.escolha = escolha;
+		if (tipo != 'P' && tipo != 'I')
+				throw new Exception ("Tipo invalido");
+		 this.tipo = tipo;
 	}
 
-	public void setEscolher(boolean escolher)
-	{
-         this.escolher = escolher;
-	}
-
-	public boolean getEscolher()
-	{
-		return this.escolher;
-	}
-
-	public void setnumero(int numero)
+	public void setNumero(int numero)
 	{
 		 this.numero = numero;
 	}
 
-	public int getnumero()
+	public int getNumero()
 	{
 		return this.numero;
+	}
+
+	public void setEscolhedor(boolean esc)
+	{
+		this.escolhedor = esc;
+	}
+
+	public boolean getEscolhedor()
+	{
+		return this.escolhedor;
 	}
 
     public void receba (Comunicado x) throws Exception
@@ -116,6 +83,7 @@ public class Parceiro
         }
         catch (IOException erro)
         {
+			erro.printStackTrace();
             throw new Exception ("Erro de transmissao");
         }
     }
@@ -170,7 +138,13 @@ public class Parceiro
 		 */
 		public String toString()
 		{
-			String string = "nome:"+nome+"\n escolha:"+escolha+"\n numero do oponente:"+numero;
+			String string = "Nome: " + nome +
+							"\nTipo: "+tipo+
+							"\nNumero: "+numero+
+							"\nEscolhedor: "+escolhedor+
+							"\nTransmissor: " + transmissor.toString() +
+							"\nReceptor: " + receptor.toString() +
+							"\nConexao: " + conexao.toString();
 			return string;
 		}
 
@@ -186,8 +160,8 @@ public class Parceiro
 			ret = 3 * ret + conexao.hashCode();
 			ret = 3 * ret + receptor.hashCode();
 			ret = 3 * ret + transmissor.hashCode();
-			ret = 3 * ret + new Character(this.escolha).hashCode();
-			ret = 3 * ret + new Boolean(this.escolher).hashCode();
+			ret = 3 * ret + new Boolean(this.escolhedor).hashCode();
+			ret = 3 * ret + new Character(this.tipo).hashCode();
 			ret = 3 * ret + new Integer(this.numero).hashCode();
 
 			return ret;
@@ -213,7 +187,7 @@ public class Parceiro
 
 			Parceiro par = (Parceiro)obj;
 
-			if(this.escolha != par.escolha || this.escolher != par.escolher || this.numero != par.numero || this.nome != par.nome)
+			if(this.tipo != par.tipo || this.numero != par.numero || !this.nome.equals(par.nome) || this.escolhedor != par.escolhedor)
 				return false;
 
 			if(!this.conexao.equals(par.conexao) || !this.receptor.equals(par.receptor) || !this.transmissor.equals(par.transmissor))
@@ -234,10 +208,10 @@ public class Parceiro
 			if(par == null)
 				throw new Exception();
 
-			this.escolha = par.escolha;
-			this.escolher = par.escolher;
+			this.tipo = par.tipo;
 			this.numero = par.numero;
 			this.nome = par.nome;
+			this.escolhedor = par.escolhedor;
 			this.conexao = (Socket)par.conexao;
 			this.receptor = (ObjectInputStream)par.receptor;
 			this.transmissor = (ObjectOutputStream)par.transmissor;
