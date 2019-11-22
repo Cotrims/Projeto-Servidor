@@ -6,7 +6,7 @@
  * @author Giovanna Pavani Martelli.
  * @author Maria Luiza Sperancin Mancebo.
  * @author Rodrigo Smith Rodrigues.
- * @author Vin�cius Martins Cotrim.
+ * @author Vinicius Martins Cotrim.
  * @since 2019.
  */
 public class Tipo extends Comunicado
@@ -91,12 +91,12 @@ public class Tipo extends Comunicado
 	public String toString()
 	{
 		String saida = "";
-		
+
 		if(tipo == 'P')
 			saida = "Par";
 		else
 			saida = "Impar";
-			
+
 		return saida;
 	}
 }
