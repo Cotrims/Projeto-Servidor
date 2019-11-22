@@ -79,6 +79,13 @@ public class Cliente //interface do jogo.
 
 		try //aguarda outro jogador, enviando um comunicado de início para o servidor
 		{
+			System.out.println("@@@@@@    @@@   @@@@@@                    @@@ @@      @@ @@@@@@   @@@   @@@@@@");
+			System.out.println("@    @   @   @  @    @                     @  @ @    @ @ @    @  @   @  @    @");
+			System.out.println("@    @  @     @ @    @                     @  @  @  @  @ @    @ @     @ @    @");
+			System.out.println("@@@@@@  @@@@@@@ @@@@@@                     @  @   @@   @ @@@@@@ @@@@@@@ @@@@@@");
+			System.out.println("@       @     @ @   @      @@@@@ @   @     @  @        @ @      @     @ @   @");
+			System.out.println("@       @     @ @    @     @   @ @   @     @  @        @ @      @     @ @    @");
+			System.out.println("@       @     @ @     @    @@@@@ @@@@@    @@@ @        @ @      @     @ @     @\n");
 			System.out.println("Aguardando outro jogador...");
 			ComunicadoDeIniciar inicio = (ComunicadoDeIniciar) servidor.envie();
 		}
