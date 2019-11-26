@@ -105,7 +105,7 @@ public class Cliente //interface do jogo.
 		catch (Exception ex)
 		{
 			System.out.println("Nome invalido! Digite novamente:");
-			return;
+			continue;
 		}
 
 		char opcao = ' ';
@@ -154,7 +154,7 @@ public class Cliente //interface do jogo.
 						catch (Exception erro)
 						{
 							System.err.println("Opcao invalida!\n");
-							return;
+							continue;
 						}
 					}
 					else
