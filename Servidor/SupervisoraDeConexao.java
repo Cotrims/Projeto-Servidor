@@ -2,6 +2,14 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+/**A classe SupervisoraDeConexao é responsável por observar o que acontece em uma conexão usuario x servidor.
+Ela verifica a todo instante o que está sendo passado, e dependendo de quais pedidos o usuário enviar,
+é dada a resposta correta ao usuário.
+@author Giovanna Pavani Martelli.
+@author Maria Luiza Sperancin Mancebo.
+@author Rodrigo Smith Rodrigues.
+@author Vinícius Martins Cotrim.
+@since 2019.*/
 public class SupervisoraDeConexao extends Thread
 {
     private static final PedidoDeNome Comunicado = null;
@@ -10,6 +18,10 @@ public class SupervisoraDeConexao extends Thread
     private Socket conexao;
     private static int numInseridos = 0;
 
+	/**Constrói uma nova instância da classe SupervisoraDeConexao.
+	@param conexao Conexao estabelecida entre o usuário e o servidor.
+	@param jogadores ArrayList contendo os jogadores presentes na conexão.
+	@throws Exception É lançada uma exceção se conexão ou jogadores for nulo.*/
     public SupervisoraDeConexao(Socket conexao, ArrayList<Parceiro> jogadores) throws Exception {
         if (conexao == null)
             throw new Exception("Conexao ausente");
@@ -21,6 +33,9 @@ public class SupervisoraDeConexao extends Thread
         this.jogadores = jogadores;
     }
 
+	/**Ponto inicial da thread. É executado em segundo plano.
+	O run da SupervisoraDeConexao é responsável por verificar o que está passando entre o usuário que ela cuida
+	e o servidor. Verifica os pedidos e envia as respostas necessárias.*/
     public void run()
     {
         ObjectInputStream receptor = null;
@@ -155,6 +170,9 @@ public class SupervisoraDeConexao extends Thread
         }
     }
 
+	/**Método responsável por retornar uma String contendo o nome do
+	vencedor do jogo.
+	@return Retorna uma String contendo o nome do vencedor.*/
     private String vencedor()
     {
         String vencedor = "";

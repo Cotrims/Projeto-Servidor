@@ -1,16 +1,29 @@
 import java.io.*;
 import java.net.*;
 
+/**A classe Parceiro pode representar um usuário ou o servidor.
+Possui os parâmetros necessários para tal representação, tal como o receptor e o transmissor
+de objetos, a conexão e dados pessoais dos usuários, como nome, numero etc.
+@author Giovanna Pavani Martelli.
+@author Maria Luiza Sperancin Mancebo.
+@author Rodrigo Smith Rodrigues.
+@author Vinícius Martins Cotrim.
+@since 2019.*/
 public class Parceiro
 {
     private Socket conexao; //Socket: classe responsável pelas conexões em si
-    private ObjectInputStream receptor;
+    private ObjectInputStream  receptor;
     private ObjectOutputStream transmissor;
     private String nome;
     private char tipo;
 	private int numero;
 	private boolean escolhedor;
 
+	/**Constrói uma nova instância da classe Parceiro.
+	@param conexao Conexão estabelecida entre o usuário e o servidor.
+	@param receptor Receptor das mensagens transmitidas.
+	@param transmissor Transmissor das mensagens transmitidas.
+	@throws Exception É lançada uma exceção se algum dos parâmetros for nulo.*/
 	public Parceiro (Socket conexao, ObjectInputStream receptor, ObjectOutputStream transmissor) throws Exception // se parametro nulos
 	{
 		if (conexao==null)
@@ -27,30 +40,41 @@ public class Parceiro
 		this.transmissor = transmissor;
     }
 
-	//GETTERs
+    //GETTERs
 
+	/**Retrorna o nome do jogador.
+	@return Retorna uma String que representa o nome do jogador*/
 	public String getNome()
 	{
 		return this.nome;
 	}
 
-	public boolean getEscolhedor()
-	{
-		return this.escolhedor;
-	}
-
-	public int getNumero()
-	{
-		return this.numero;
-	}
-
+	/**Retrorna o tipo do número.
+	@return Retorna um char que representa o tipo do número: I ou P*/
 	public char getTipo()
 	{
 		return this.tipo;
 	}
 
+	/**Retrorna o numero escolhido.
+	@return Retorna um inteiro que representa o número escolhido pelo jogador.*/
+	public int getNumero()
+	{
+		return this.numero;
+	}
+
+	/**Retrorna o escolhedor.
+	@return Retorna um boolean que representa o escolhedor.*/
+	public boolean getEscolhedor()
+	{
+		return this.escolhedor;
+	}
+
 	//SETTERs
 
+	/**Seta um novo nome para o jogador.
+	@param nome Nome do jogador.
+	@throws Exception É lançada uma exceção se o nome for nulo*/
 	public void setNome(String nome)throws Exception
 	{
 		 if (nome==null)
@@ -58,6 +82,9 @@ public class Parceiro
 		 this.nome = nome;
 	}
 
+	/**Seta um novo tipo de numero.
+	@param tipo Char que representa o tipo do número: I ou P.
+	@throws Exception É lançada uma exceção se o tipo for nulo*/
 	public void setTipo(char tipo) throws Exception
 	{
 		if (tipo != 'P' && tipo != 'I')
@@ -65,22 +92,29 @@ public class Parceiro
 		 this.tipo = tipo;
 	}
 
+	/**Seta um novo numero para o jogador.
+	@param numero Numero escolhido do jogador.*/
 	public void setNumero(int numero)
 	{
 		 this.numero = numero;
 	}
 
+	/**Seta um novo escolhedor.
+	@param esc Escolhedor do tipo.*/
 	public void setEscolhedor(boolean esc)
 	{
 		this.escolhedor = esc;
 	}
 
+	/**Método responsável por enviar alguma coisa ao outro lado da conexão.
+	@param x Comunicado que o usuario ou a conexao vai receber
+	@throws Exception É lançada uma exceção se houver erro na transmissão do comunicado.*/
     public void receba (Comunicado x) throws Exception
     {
         try
         {
             this.transmissor.writeObject (x);
-            this.transmissor.flush       ();
+            this.transmissor.flush ();
         }
         catch (IOException erro)
         {
@@ -89,6 +123,9 @@ public class Parceiro
         }
     }
 
+	/**Método responsável por receber alguma coisa do outro lado da conexão.
+	@return Comunicado que o usuario ou a conexao vai receber.
+	@throws Exception É lançada uma exceção se houver erro na recepção do comunicado.*/
     public Comunicado envie () throws Exception
     {
         try
@@ -97,17 +134,20 @@ public class Parceiro
         }
         catch (Exception erro)
         {
+			erro.printStackTrace();
             throw new Exception ("Erro de recepcao");
         }
     }
 
-    public void adeus () throws Exception
+	/**Fecha a conexão, assim como o transmissor e o receptor.
+	@throws Exception É lançada uma exceção se houver erro na desconexão.*/
+    public void adeus () throws Exception //fecha as conexões
     {
         try
         {
             this.transmissor.close();
-            this.receptor   .close();
-            this.conexao    .close();
+            this.receptor.close();
+            this.conexao.close();
         }
         catch (Exception erro)
         {
@@ -116,7 +156,7 @@ public class Parceiro
     }
 
 	  /**
-	  Clona Parceiro
+	  Clona Parceiro.
 	  Produz e retorna uma copia da instancia this de Parceiro.
 	  @return a copia do this
 	 */
@@ -149,14 +189,15 @@ public class Parceiro
 		return string;
 	}
 
-		/**
-		 Calula e retorna o hashcode da instancia do tipo Parceiro.
-		 Calcula o hashcode da classe Parceiro representada pela instancia a qual o metodo for aplicado.
-		 @return o hashcode de quem chamou o metodo
-		*/
+	/**
+	 Calula e retorna o hashcode da instancia do tipo Parceiro.
+	 Calcula o hashcode da classe Parceiro representada pela instancia a qual o metodo for aplicado.
+	 @return o hashcode de quem chamou o metodo
+	*/
 	public int hashCode()
 	{
 		int ret = 1;
+
 		ret = 3 * ret + this.nome.hashCode();
 		ret = 3 * ret + conexao.hashCode();
 		ret = 3 * ret + receptor.hashCode();
@@ -168,13 +209,13 @@ public class Parceiro
 		return ret;
 	}
 
-		/**
-		 Verifica se duas instancias de Parceiro sao iguais.
-	     Verifica se o Object fornecido como parametro eh a mesma Parceiro da instancia, resultando true em caso afirmativo,
-	     ou false, caso nao forem iguais.
-	     @param  obj o objeto que vai ser comparado com a instancia
-	     @return true caso forem iguais, e false caso forem diferentes
-		*/
+	/**
+	 Verifica se duas instancias de Parceiro sao iguais.
+	 Verifica se o Object fornecido como parametro eh a mesma Parceiro da instancia, resultando true em caso afirmativo,
+	 ou false, caso nao forem iguais.
+	 @param  obj o objeto que vai ser comparado com a instancia
+	 @return true caso forem iguais, e false caso forem diferentes
+	*/
 	public boolean equals(Object obj)
 	{
 		if(this == obj)
@@ -197,13 +238,13 @@ public class Parceiro
 		return true;
 	}
 
-		/**
-	     Constroi uma copia da instancia da classe Parceiro.
-	     Deve ser passado no parametro uma instancia de Parceiro para ser
-		 usada como modelo para criar uma nova.
-	     @param par instancia de Parceiro que sera usada como molde.
-	     @throws Exception caso o molde for nulo.
-	    */
+	/**
+	 Constroi uma copia da instancia da classe Parceiro.
+	 Deve ser passado no parametro uma instancia de Parceiro para ser
+	 usada como modelo para criar uma nova.
+	 @param par instancia de Parceiro que sera usada como molde.
+	 @throws Exception caso o molde for nulo.
+	*/
 	public Parceiro (Parceiro par) throws Exception
 	{
 		if(par == null)

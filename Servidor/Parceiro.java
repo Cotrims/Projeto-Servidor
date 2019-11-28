@@ -1,6 +1,14 @@
 import java.io.*;
 import java.net.*;
 
+/**A classe Parceiro pode representar um usuário ou o servidor.
+Possui os parâmetros necessários para tal representação, tal como o receptor e o transmissor
+de objetos, a conexão e dados pessoais dos usuários, como nome, numero etc.
+@author Giovanna Pavani Martelli.
+@author Maria Luiza Sperancin Mancebo.
+@author Rodrigo Smith Rodrigues.
+@author Vinícius Martins Cotrim.
+@since 2019.*/
 public class Parceiro
 {
     private Socket conexao; //Socket: classe responsável pelas conexões em si
@@ -11,6 +19,11 @@ public class Parceiro
 	private int numero;
 	private boolean escolhedor;
 
+	/**Constrói uma nova instância da classe Parceiro.
+	@param conexao Conexão estabelecida entre o usuário e o servidor.
+	@param receptor Receptor das mensagens transmitidas.
+	@param transmissor Transmissor das mensagens transmitidas.
+	@throws Exception É lançada uma exceção se algum dos parâmetros for nulo.*/
 	public Parceiro (Socket conexao, ObjectInputStream receptor, ObjectOutputStream transmissor) throws Exception // se parametro nulos
 	{
 		if (conexao==null)
@@ -29,21 +42,29 @@ public class Parceiro
 
     //GETTERs
 
+	/**Retrorna o nome do jogador.
+	@return Retorna uma String que representa o nome do jogador*/
 	public String getNome()
 	{
 		return this.nome;
 	}
 
+	/**Retrorna o tipo do número.
+	@return Retorna um char que representa o tipo do número: I ou P*/
 	public char getTipo()
 	{
 		return this.tipo;
 	}
 
+	/**Retrorna o numero escolhido.
+	@return Retorna um inteiro que representa o número escolhido pelo jogador.*/
 	public int getNumero()
 	{
 		return this.numero;
 	}
 
+	/**Retrorna o escolhedor.
+	@return Retorna um boolean que representa o escolhedor.*/
 	public boolean getEscolhedor()
 	{
 		return this.escolhedor;
@@ -51,6 +72,9 @@ public class Parceiro
 
 	//SETTERs
 
+	/**Seta um novo nome para o jogador.
+	@param nome Nome do jogador.
+	@throws Exception É lançada uma exceção se o nome for nulo*/
 	public void setNome(String nome)throws Exception
 	{
 		 if (nome==null)
@@ -58,6 +82,9 @@ public class Parceiro
 		 this.nome = nome;
 	}
 
+	/**Seta um novo tipo de numero.
+	@param tipo Char que representa o tipo do número: I ou P.
+	@throws Exception É lançada uma exceção se o tipo for nulo*/
 	public void setTipo(char tipo) throws Exception
 	{
 		if (tipo != 'P' && tipo != 'I')
@@ -65,16 +92,23 @@ public class Parceiro
 		 this.tipo = tipo;
 	}
 
+	/**Seta um novo numero para o jogador.
+	@param numero Numero escolhido do jogador.*/
 	public void setNumero(int numero)
 	{
 		 this.numero = numero;
 	}
 
+	/**Seta um novo escolhedor.
+	@param esc Escolhedor do tipo.*/
 	public void setEscolhedor(boolean esc)
 	{
 		this.escolhedor = esc;
 	}
 
+	/**Método responsável por enviar alguma coisa ao outro lado da conexão.
+	@param x Comunicado que o usuario ou a conexao vai receber
+	@throws Exception É lançada uma exceção se houver erro na transmissão do comunicado.*/
     public void receba (Comunicado x) throws Exception
     {
         try
@@ -89,6 +123,9 @@ public class Parceiro
         }
     }
 
+	/**Método responsável por receber alguma coisa do outro lado da conexão.
+	@return Comunicado que o usuario ou a conexao vai receber.
+	@throws Exception É lançada uma exceção se houver erro na recepção do comunicado.*/
     public Comunicado envie () throws Exception
     {
         try
@@ -102,6 +139,8 @@ public class Parceiro
         }
     }
 
+	/**Fecha a conexão, assim como o transmissor e o receptor.
+	@throws Exception É lançada uma exceção se houver erro na desconexão.*/
     public void adeus () throws Exception //fecha as conexões
     {
         try
